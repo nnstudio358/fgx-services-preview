@@ -26,3 +26,4 @@ gallery can be added later to bring that back.
 - Best in Chrome, Edge and Safari; Firefox shows the page without a few scroll effects.
 - `<meta name="robots" content="noindex">` keeps it out of search while it is a preview.
 - The booklet's QR codes point to FGXWORX.COM/STUDIO — that URL is already printed.
+Revision round 1 deployed
