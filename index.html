@@ -188,6 +188,48 @@
     [data-player] { position: relative; }
     .clipplay { position: absolute; transition: opacity 300ms ease; }
 
+    /* a headline that spans the column, with the lede alongside it */
+    .headrow { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 22px 56px; }
+
+    /* chapter 04: one full-width stage, the rest as thumbnails beneath */
+    .animrow { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 260px)); gap: 20px; }
+    .animthumb { display: flex; align-items: center; gap: 14px; padding: 0; background: transparent; border: 0; border-top: 2px solid rgba(255,255,255,0.14); padding-top: 14px; cursor: pointer; text-align: left; transition: color 300ms ease, border-color 300ms ease; }
+    .animthumb img { width: 104px; height: 64px; object-fit: cover; flex-shrink: 0; filter: saturate(0.6) brightness(0.7); transition: filter 400ms ease; }
+    .animthumb[aria-pressed="true"] { border-top-color: var(--lime); }
+    .animthumb[aria-pressed="true"] img, .animthumb:hover img { filter: none; }
+    .animmeta { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+    .animname { font-size: 15px; font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase; }
+    .animkind { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); }
+
+    /* chapter 05: the fan sits under the headline, its caption below */
+    .fanwrap { display: flex; flex-direction: column; gap: 22px; }
+    .fanwrap .stage { --cardw: 46%; --off: 62px; --lift: -16px; margin-left: 6%; }
+    .fanmeta { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px 32px; border-top: 1px solid rgba(255,255,255,0.16); padding-top: 22px; }
+
+    @media (max-width: 900px) {
+      .animstage { flex-grow: 0; aspect-ratio: 16 / 10; min-height: 0; }
+      .animrow { grid-template-columns: repeat(auto-fit, minmax(0, 200px)); gap: 14px; }
+      .fanwrap .stage { --cardw: 74%; --off: 16px; --lift: -7px; margin-left: 0; }
+    }
+
+    /* one type scale across the page */
+    .h2 { font-size: clamp(32px, 3.6vw, 56px) !important; }
+    .h2.hero-film { font-size: clamp(40px, 5.4vw, 88px) !important; }
+    .lede { font-size: clamp(16px, 1.3vw, 20px) !important; }
+    .chap .lab { font-size: 12px; }
+
+    /* chapter 01 film rails: an edit timeline rather than sprocket holes */
+    .rail { position: absolute; left: 0; right: 0; height: 22px; }
+    .rail::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(255,255,255,0.3); }
+    .rail::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 14px; margin-top: -7px;
+      background-image: linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 26px 100%; }
+    .railmark { position: absolute; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 9px;
+      padding: 0 14px 0 10px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #d9d0d6; background: #070707; z-index: 2; white-space: nowrap; }
+    .railmark b { color: var(--lime); font-weight: 700; letter-spacing: 0.1em; }
+    .railv { position: absolute; top: 0; bottom: 0; width: 22px;
+      background-image: linear-gradient(180deg, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 100% 26px; }
+    .railv::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: rgba(255,255,255,0.28); }
+
     /* brands row: one line, smaller, slower */
     .logorow { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
     .logorow .marquee { gap: 64px; padding-right: 64px; animation-duration: 56s; }
@@ -197,8 +239,10 @@
     /* team */
     .teamgrid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 20px; }
     .portrait { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #2d0c2f; }
-    .portrait img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms cubic-bezier(.2,.7,.2,1), filter 600ms ease; filter: saturate(0.75); }
-    .person:hover .portrait img, .person.flip .portrait img { transform: scale(1.06); filter: saturate(1.1); }
+    .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 420ms ease, transform 700ms cubic-bezier(.2,.7,.2,1); }
+    .portrait .p2 { opacity: 0; }
+    .person:hover .portrait .p1, .person.flip .portrait .p1 { opacity: 0; }
+    .person:hover .portrait .p2, .person.flip .portrait .p2 { opacity: 1; transform: scale(1.04); }
     .portrait::after { content: ""; position: absolute; inset: auto 0 0 0; height: 3px; background: var(--lime); transform: scaleX(0); transform-origin: left center; transition: transform 500ms cubic-bezier(.7,0,.2,1); }
     .person:hover .portrait::after, .person.flip .portrait::after { transform: scaleX(1); }
 
@@ -294,7 +338,6 @@
   <section id="intro" class="ipin" style="position: relative; height: 200vh; background: #23051c;">
     <div class="snap" aria-hidden="true" style="top: calc((100vh + 76px) * 0.9);"></div>
     <div class="stick" style="position: sticky; top: 76px; height: calc(100vh - 76px); min-height: 600px; overflow: hidden; display: flex; align-items: center; background: radial-gradient(50% 70% at 0% 0%, rgba(101,0,40,0.55) 0%, rgba(101,0,40,0) 70%), #23051c;">
-      <div class="wm iwm" aria-hidden="true" style="right: -40px; bottom: -120px; font-size: 420px;">fgx</div>
       <div class="wrap" style="position: relative; display: flex; flex-direction: column; gap: 48px;">
         <p class="iq" style="margin: 0; max-width: 1120px; font-size: clamp(32px, 4.3vw, 66px); line-height: 1.16; font-weight: 300; letter-spacing: 0.01em; text-wrap: pretty;">
             <span style="opacity: clamp(0.16, calc((var(--ip) - 0.040) * 16), 1); font-weight: 600;">FGX </span>
@@ -315,10 +358,8 @@
             <span style="opacity: clamp(0.16, calc((var(--ip) - 0.460) * 16), 1); font-weight: 300;">lasting </span>
             <span style="opacity: clamp(0.16, calc((var(--ip) - 0.488) * 16), 1); font-weight: 300;">impact. </span>
         </p>
-        <div class="isub" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; padding-top: 32px; position: relative;">
+        <div class="isub" style="position: relative; padding-top: 26px;">
           <div class="iline" style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--lime);"></div>
-          <p class="if1" style="margin: 0; font-size: clamp(18px, 1.6vw, 24px); font-weight: 200; letter-spacing: 0.06em; line-height: 1.5;">Drive business success by engaging customers with compelling interactions, elevating their experience, and inspiring loyalty and innovation.</p>
-          <p class="if2" style="margin: 0; font-size: clamp(18px, 1.6vw, 24px); font-weight: 200; letter-spacing: 0.06em; line-height: 1.5; color: #d9d0d6;">Equipped with a diverse range of skills and technology, we provide effective solutions customized to meet your specific needs.</p>
         </div>
         <div class="if3" style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; font-size: 13px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lime); font-weight: 600;">
           <span>Videography</span><span aria-hidden="true" style="color: #6f5d6a;">/</span>
@@ -336,8 +377,11 @@
     <div class="snap" aria-hidden="true" style="top: calc((240vh + 76px) * 0.8);"></div>
     <div class="stick vstage" style="position: sticky; top: 76px; height: calc(100vh - 76px); min-height: 560px; overflow: hidden; background: #000000;">
       <div class="strip" style="position: absolute; left: 0; top: -12vh; height: calc(100% + 24vh); width: calc(3 * 106vw); --steps: 2; background: #070707;">
-        <div class="sprocket" style="position: absolute; left: 0; right: 0; top: 3vh; height: 5vh;"></div>
-        <div class="sprocket" style="position: absolute; left: 0; right: 0; bottom: 3vh; height: 5vh;"></div>
+        <div class="rail" style="top: 4.5vh;">
+          <span class="railmark" style="left: calc(0 * 106vw);"><b>01</b> Lasko Summit Series</span>
+          <span class="railmark" style="left: calc(1 * 106vw);"><b>02</b> Mad Catter</span>
+          <span class="railmark" style="left: calc(2 * 106vw);"><b>03</b> The 2025 Reel</span></div>
+        <div class="rail" style="bottom: 4.5vh;"></div>
             <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(0 * 106vw); overflow: hidden; background: #000000;" data-player>
               <img class="lzoom" src="img/film_lasko.jpg" alt="Black and white mountain peak from the Lasko Summit Series film" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%;">
               <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0) 48%);"></div>
@@ -372,7 +416,7 @@
       <div class="lbb" style="position: absolute; left: 0; right: 0; bottom: 0; height: 16%; background: #000000;"></div>
       <div class="vA wrap" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; gap: 24px; pointer-events: none; background: linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0) 55%);">
         <div class="chap"><span class="num">01</span><span class="bar"></span><span class="lab">Videography</span></div>
-        <h2 class="h2" style="font-size: clamp(40px, 5.4vw, 88px); max-width: 640px;">Lasko Summit Series</h2>
+        <h2 class="h2 hero-film" style="max-width: 640px;">Lasko Summit Series</h2>
         <p class="lede" style="max-width: 480px; font-size: clamp(15px, 1.2vw, 19px);">Concept, shoot, edit and delivery, all in-house. Every decision serves the story: lighting that carries emotion, pacing that holds attention.</p>
         <span style="font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: #d9d0d6;">Scroll to roll the film</span>
       </div>
@@ -394,8 +438,8 @@
         <p class="lede" style="font-size: 16px;">Concept, shoot, edit and delivery, all in-house. Every decision serves the story.</p>
       </div>
       <div style="position: relative; padding-left: 40px; padding-right: 40px;">
-        <div class="sprocket-v" style="position: absolute; top: 0; bottom: 0; left: 12px; width: 16px;"></div>
-        <div class="sprocket-v" style="position: absolute; top: 0; bottom: 0; right: 12px; width: 16px;"></div>
+        <div class="railv" style="left: 9px;"></div>
+        <div class="railv" style="right: 9px;"></div>
         <div style="display: flex; flex-direction: column; gap: 16px;">
             <div class="mframe" style="position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #000000;" data-player>
               <img class="" src="img/film_lasko.jpg" alt="Black and white mountain peak from the Lasko Summit Series film" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%;">
@@ -437,7 +481,6 @@
     <div class="snap" aria-hidden="true" style="top: calc((220vh + 76px) * 0.625);"></div>
     <div class="snap" aria-hidden="true" style="top: calc((220vh + 76px) * 0.875);"></div>
     <div class="stick" style="position: sticky; top: 76px; height: calc(100vh - 76px); min-height: 660px; overflow: hidden; display: flex; align-items: center; background: radial-gradient(50% 70% at 100% 100%, rgba(101,0,40,0.6) 0%, rgba(101,0,40,0) 70%), #23051c;">
-      <div class="wm" aria-hidden="true" style="left: -30px; bottom: -120px; font-size: 380px;">fgx</div>
       <div class="wrap split" style="position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center;">
         <div style="position: relative; z-index: 2; display: flex; flex-direction: column; gap: 22px;">
           <div class="chap"><span class="num">02</span><span class="bar"></span><span class="lab">Photography</span></div>
@@ -517,29 +560,20 @@
     </div>
   </section>
 
-  <section id="motion" class="pin" style="position: relative; height: 180vh; background: #23051c;">
-    <div class="stick" style="position: sticky; top: 76px; height: calc(100vh - 76px); overflow: hidden; display: flex; align-items: center; background: radial-gradient(55% 70% at 0% 0%, rgba(101,0,40,0.9) 0%, rgba(101,0,40,0) 70%), radial-gradient(40% 60% at 100% 40%, rgba(101,0,40,0.55) 0%, rgba(101,0,40,0) 70%), #23051c;">
-      <div class="wm" aria-hidden="true" style="left: -30px; bottom: -120px; font-size: 360px;">fgx</div>
-      <div class="wrap split" style="position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center;">
-        <div style="display: flex; flex-direction: column; gap: 28px;">
+  <section id="motion" class="pin" style="position: relative; height: 220vh; background: #23051c;">
+    <div class="stick" style="position: sticky; top: 76px; height: calc(100vh - 76px); overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 30px; padding: 40px 0; background: radial-gradient(55% 70% at 0% 0%, rgba(101,0,40,0.9) 0%, rgba(101,0,40,0) 70%), radial-gradient(40% 60% at 100% 40%, rgba(101,0,40,0.55) 0%, rgba(101,0,40,0) 70%), #23051c;">
+      <div class="wrap headrow">
+        <div style="display: flex; flex-direction: column; gap: 18px; max-width: 760px;">
           <div class="chap"><span class="num">04</span><span class="bar"></span><span class="lab">Animation</span></div>
-          <h2 class="h2" style="font-size: clamp(32px, 3.6vw, 54px);">3D Animation : Transforming Ideas into Dynamic Visuals</h2>
-          <p class="lede">Our 3D and 2D animations amplify your message, transforming ideas into memorable, market-moving visuals.</p>
-          <div style="height: 2px; background: rgba(255,255,255,0.12); position: relative;">
+          <h2 class="h2">3D Animation : Transforming Ideas into Dynamic Visuals</h2>
+          <div style="height: 2px; background: rgba(255,255,255,0.12); position: relative; max-width: 300px;">
             <div class="pinline" style="position: absolute; inset: 0; background: var(--lime);"></div>
           </div>
-          <div role="group" aria-label="Choose an animation" style="display: flex; flex-direction: column; gap: 4px;">
-              <button data-clip aria-pressed="true" style="min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 4px; background: transparent; border: 0; border-bottom: 1px solid rgba(255,255,255,0.12); color: #ffffff; cursor: pointer; text-align: left; transition: color 300ms ease;">
-                <span style="font-size: clamp(17px, 1.5vw, 22px); font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase;">Lasko product animation</span>
-                <span data-kind style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); opacity: 1;">3D</span>
-              </button>
-              <button data-clip aria-pressed="false" style="min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 4px; background: transparent; border: 0; border-bottom: 1px solid rgba(255,255,255,0.12); color: #9d8f99; cursor: pointer; text-align: left; transition: color 300ms ease;">
-                <span style="font-size: clamp(17px, 1.5vw, 22px); font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase;">Crayola characters</span>
-                <span data-kind style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); opacity: 0.5;">3D / 2D</span>
-              </button>
-          </div>
         </div>
-        <div class="pinzoom" data-player style="position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #140311; box-shadow: 0 40px 120px rgba(0,0,0,0.55);">
+        <p class="lede" style="max-width: 400px;">Our 3D and 2D animations amplify your message, transforming ideas into memorable, market-moving visuals.</p>
+      </div>
+      <div class="wrap" style="display: flex; flex-direction: column; gap: 20px; flex-grow: 1; min-height: 0;">
+        <div class="pinzoom animstage" data-player style="position: relative; flex-grow: 1; min-height: 200px; overflow: hidden; background: #140311; box-shadow: 0 40px 120px rgba(0,0,0,0.55);">
             <div class="frame-swap" data-clip-frame style="position: absolute; inset: 0; opacity: 1;">
               <img src="img/anim_lasko.jpg" alt="Lasko fan animation frame showing 34% faster wind speed and 40% quieter" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -547,30 +581,41 @@
               <img src="img/anim_crayola.jpg" alt="Animated Crayola crayon characters on a playing field" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
           <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 20;">
-            <button class="play clipplay" data-yt="3TxxATMmuKM" aria-label="Play Lasko product animation" style="width: 88px; height: 88px; opacity: 1; pointer-events: auto;"><svg width="26" height="26" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
-            <button class="play clipplay" data-yt="phspu_aT8ZQ" aria-label="Play Crayola characters" style="width: 88px; height: 88px; opacity: 0; pointer-events: none;"><svg width="26" height="26" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
+            <button class="play clipplay" data-clip-play data-yt="3TxxATMmuKM" aria-label="Play Lasko product animation" style="width: 88px; height: 88px; opacity: 1; pointer-events: auto;"><svg width="26" height="26" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
+            <button class="play clipplay" data-clip-play data-yt="phspu_aT8ZQ" aria-label="Play Crayola characters" style="width: 88px; height: 88px; opacity: 0; pointer-events: none;"><svg width="26" height="26" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
           </div>
+        </div>
+        <div class="animrow" role="group" aria-label="Choose an animation">
+            <button class="animthumb" data-clip aria-pressed="true" style="color: #ffffff;">
+              <img src="img/anim_lasko.jpg" alt="Lasko fan animation frame showing 34% faster wind speed and 40% quieter" loading="lazy" decoding="async">
+              <span class="animmeta">
+                <span class="animname">Lasko product animation</span>
+                <span data-kind class="animkind" style="opacity: 1;">3D</span>
+              </span>
+            </button>
+            <button class="animthumb" data-clip aria-pressed="false" style="color: #9d8f99;">
+              <img src="img/anim_crayola.jpg" alt="Animated Crayola crayon characters on a playing field" loading="lazy" decoding="async">
+              <span class="animmeta">
+                <span class="animname">Crayola characters</span>
+                <span data-kind class="animkind" style="opacity: 0.5;">3D / 2D</span>
+              </span>
+            </button>
         </div>
       </div>
     </div>
   </section>
 
   <section id="brands" class="sec" style="background: #1c1c1c; padding-top: 140px; padding-bottom: 150px; overflow: hidden;">
-    <div class="wrap split" style="display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 72px; align-items: center;">
-      <div style="display: flex; flex-direction: column; gap: 26px;">
-        <div class="chap rv"><span class="num">05</span><span class="bar"></span><span class="lab">Branding</span></div>
-        <h2 class="h2 rv">Outstanding Brand Identities</h2>
-        <p class="lede rv">We build brands that resonate—fusing visual storytelling and strategy to capture attention and inspire loyalty.</p>
-        <div style="border-top: 1px solid rgba(255,255,255,0.16); padding-top: 24px; display: flex; flex-direction: column; gap: 8px;">
-          <span style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #bdb3ba;"><span id="brandCount">01 / 06</span> · Featured</span>
-          <span id="brandTitle" class="cap" style="font-size: clamp(30px, 3vw, 46px);">RIDGID</span>
-          <span id="brandKind" style="font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); font-weight: 600;">Campaign key art</span>
+    <div class="wrap" style="display: flex; flex-direction: column; gap: 46px;">
+      <div class="headrow">
+        <div style="display: flex; flex-direction: column; gap: 18px; max-width: 760px;">
+          <div class="chap rv"><span class="num">05</span><span class="bar"></span><span class="lab">Branding</span></div>
+          <h2 class="h2 rv">Outstanding Brand Identities</h2>
         </div>
-        <button id="nextBrand" class="ghost" style="align-self: flex-start;">Deal the next one
-          <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"></path></svg>
-        </button>
+        <p class="lede rv" style="max-width: 400px;">We build brands that resonate—fusing visual storytelling and strategy to capture attention and inspire loyalty.</p>
       </div>
-      <div class="stage rv" style="position: relative; height: 540px; touch-action: pan-y;">
+      <div class="fanwrap">
+        <div class="stage rv" style="position: relative; height: 470px; touch-action: pan-y;">
           <button class="deal" data-card aria-label="Deal the next brand" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 0), calc(var(--lift) * 0)) rotate(0deg) scale(1.000); z-index: 20; filter: brightness(1); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
             <img src="img/brand_ridgid.jpg" alt="RIDGID miter saw with Tough Built Tools type" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: var(--lime); color: #1c1c1c; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">RIDGID</span>
@@ -595,6 +640,17 @@
             <img src="img/brand_turtleback.jpg" alt="Turtleback EveryWear Armor ad featuring Percival the gorilla" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Turtleback</span>
           </button>
+        </div>
+        <div class="fanmeta rv">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #bdb3ba;"><span id="brandCount">01 / 06</span> · Featured</span>
+            <span id="brandTitle" class="cap" style="font-size: clamp(28px, 2.6vw, 40px);">RIDGID</span>
+            <span id="brandKind" style="font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); font-weight: 600;">Campaign key art</span>
+          </div>
+          <button id="nextBrand" class="ghost">Deal the next one
+            <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"></path></svg>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -639,12 +695,13 @@
           <div class="chap rv"><span class="num">06</span><span class="bar"></span><span class="lab">The studio</span></div>
           <h2 class="h2 rv">Meet Your Creative Partners</h2>
         </div>
-        <p class="lede rv" style="max-width: 420px; font-size: clamp(15px, 1.2vw, 18px);">You work directly with the people who shoot, model, animate and design your project. No layers in between.</p>
+        <p class="lede rv" style="max-width: 540px;">You work directly with the people who shoot, model, animate and design your project. Equipped with a diverse range of skills and technology, we deliver solutions built for your specific needs.</p>
       </div>
       <div class="teamgrid rv">
           <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
             <div class="portrait">
-              <img src="img/team_patrick.jpg" alt="Patrick Shuck" loading="lazy" decoding="async">
+              <img class="p1" src="img/team_patrick.jpg" alt="Patrick Shuck" loading="lazy" decoding="async">
+              <img class="p2" src="img/team_patrick_02.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             </div>
             <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
               <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Patrick Shuck</span>
@@ -653,7 +710,8 @@
           </figure>
           <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
             <div class="portrait">
-              <img src="img/team_derek.jpg" alt="Derek Rahm" loading="lazy" decoding="async">
+              <img class="p1" src="img/team_derek.jpg" alt="Derek Rahm" loading="lazy" decoding="async">
+              <img class="p2" src="img/team_derek_02.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             </div>
             <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
               <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Derek Rahm</span>
@@ -662,7 +720,8 @@
           </figure>
           <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
             <div class="portrait">
-              <img src="img/team_james.jpg" alt="James Hartranft" loading="lazy" decoding="async">
+              <img class="p1" src="img/team_james.jpg" alt="James Hartranft" loading="lazy" decoding="async">
+              <img class="p2" src="img/team_james_02.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             </div>
             <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
               <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">James Hartranft</span>
@@ -671,7 +730,8 @@
           </figure>
           <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
             <div class="portrait">
-              <img src="img/team_andre.jpg" alt="Andre Ewing" loading="lazy" decoding="async">
+              <img class="p1" src="img/team_andre.jpg" alt="Andre Ewing" loading="lazy" decoding="async">
+              <img class="p2" src="img/team_andre_02.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             </div>
             <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
               <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Andre Ewing</span>
@@ -680,7 +740,8 @@
           </figure>
           <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
             <div class="portrait">
-              <img src="img/team_grace.jpg" alt="Grace DeOliveira" loading="lazy" decoding="async">
+              <img class="p1" src="img/team_grace.jpg" alt="Grace DeOliveira" loading="lazy" decoding="async">
+              <img class="p2" src="img/team_grace_02.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             </div>
             <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
               <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Grace DeOliveira</span>
@@ -689,7 +750,8 @@
           </figure>
           <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
             <div class="portrait">
-              <img src="img/team_amie.jpg" alt="Amie Oravec" loading="lazy" decoding="async">
+              <img class="p1" src="img/team_amie.jpg" alt="Amie Oravec" loading="lazy" decoding="async">
+              <img class="p2" src="img/team_amie_02.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             </div>
             <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
               <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Amie Oravec</span>
@@ -698,7 +760,8 @@
           </figure>
           <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
             <div class="portrait">
-              <img src="img/team_tazzi.jpg" alt="Tazzi" loading="lazy" decoding="async">
+              <img class="p1" src="img/team_tazzi.jpg" alt="Tazzi" loading="lazy" decoding="async">
+              <img class="p2" src="img/team_tazzi_02.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
             </div>
             <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
               <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Tazzi</span>
@@ -714,7 +777,8 @@
     <div class="wm" aria-hidden="true" style="left: 50%; transform: translateX(-50%); bottom: -120px; font-size: 420px;">fgx</div>
     <div class="wrap" style="position: relative; padding-top: 130px; padding-bottom: 130px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 34px;">
       <img class="rv" src="img/fgx_logo.png" alt="fgx creative" loading="lazy" decoding="async" style="width: min(300px, 70%); height: auto;">
-      <h2 class="h2 rv" style="font-size: clamp(34px, 4.6vw, 72px); max-width: 900px;">Let’s make your brand unforgettable.</h2>
+      <h2 class="h2 rv" style="font-size: clamp(34px, 4.6vw, 72px) !important; max-width: 900px;">Let’s make your brand unforgettable.</h2>
+      <p class="lede rv" style="max-width: 680px;">Drive business success by engaging customers with compelling interactions, elevating their experience, and inspiring loyalty and innovation.</p>
       <div class="rv" style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; align-items: center;">
         <a class="btn" href="mailto:studio@fgxcreative.com?subject=Project%20enquiry" style="min-height: 62px; padding: 0 40px; font-size: 15px;">Email the studio</a>
         <button id="copyEmail" class="ghost" type="button">Copy address</button>
@@ -745,7 +809,7 @@
   var heroEl = $('#top'), introEl = $('#intro'), videoEl = $('#video'), photoEl = $('#photo');
   var heroSlides = $$('[data-hero-slide]'), heroWords = $('#heroWords'), heroSteps = $$('[data-hero-step]');
   var prints = $$('[data-print]'), styleBtns = $$('[data-style]'), styleCount = $('#styleCount');
-  var clipBtns = $$('[data-clip]'), clipFrames = $$('[data-clip-frame]');
+  var clipBtns = $$('[data-clip]'), clipFrames = $$('[data-clip-frame]'), clipPlays = $$('[data-clip-play]');
   var deckCards = $$('[data-card]'), brandCount = $('#brandCount'), brandTitle = $('#brandTitle'), brandKind = $('#brandKind');
   var slider = $('#ba'), beforeImg = $('#baBefore'), baLine = $('#baLine'), baFill = $('#baFill');
 
@@ -820,6 +884,11 @@
       if (tag) tag.style.opacity = i === clip ? 1 : 0.5;
     });
     clipFrames.forEach(function (el, i) { el.style.opacity = i === clip ? 1 : 0; });
+    clipPlays.forEach(function (el, i) {
+      el.style.opacity = i === clip ? 1 : 0;
+      el.style.pointerEvents = i === clip ? 'auto' : 'none';
+      el.setAttribute('tabindex', i === clip ? '0' : '-1');
+    });
   }
 
   function paintDeck() {
