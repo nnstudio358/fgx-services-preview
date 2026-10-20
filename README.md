@@ -1,18 +1,28 @@
-# FGX Creative — 2026 Services (scroll preview)
+# FGX Creative — 2026 Services (scroll page, v2)
 
-A self-contained preview page. No build step, no server code: it is one HTML file plus images.
+Built from the Services Booklet 2026. One HTML file plus images: no build step, no server code.
 
-## Put it online in ~2 minutes (no GitHub needed)
-1. Go to app.netlify.com/drop (or Cloudflare Pages → Create → Upload assets).
-2. Drag this whole folder onto the page.
-3. Copy the link it gives you and send it to the client.
+## Put it online
+- Drag this folder onto app.netlify.com/drop, or
+- Upload the contents to the repo root and turn on GitHub Pages (Settings → Pages → main → /root), or
+- Connect the repo to Cloudflare Pages with no build command and `/` as the output.
 
-## Or host it on GitHub Pages
-1. Create a repo and upload these files at the root (index.html must be at the top level).
-2. Settings → Pages → Source: "Deploy from a branch" → main → / (root).
-3. The link appears in the same panel after a minute.
+## Videos
+The five play buttons open FGX's YouTube videos in a privacy-friendly embed:
+Lasko Summit Series, Mad Catter Coffee Roasters, the 2025 reel, the Lasko product
+animation and the Crayola characters. Nothing is self-hosted yet. If you later want a
+player without YouTube branding, those five swap to self-hosted files or Cloudflare Stream.
+
+## Images
+Pulled from the booklet PDF at preview quality. Swap in the full-resolution originals
+from Dropbox (FGX Services Content) before launch; the file names in `img/` say what goes where.
+
+## Team portraits
+One portrait per person. FGX's own site swaps to a second, sillier portrait on hover
+("polished on the surface, delightfully silly underneath"). The `_02` files from the
+gallery can be added later to bring that back.
 
 ## Notes
-- Best in Chrome, Edge or Safari. Firefox shows the page but skips a few scroll effects.
-- Films and animated previews are stand-ins: still images with play buttons, to be replaced with real video.
-- `<meta name="robots" content="noindex">` is set so it stays out of search results while it is a preview.
+- Best in Chrome, Edge and Safari; Firefox shows the page without a few scroll effects.
+- `<meta name="robots" content="noindex">` keeps it out of search while it is a preview.
+- The booklet's QR codes point to FGXWORX.COM/STUDIO — that URL is already printed.

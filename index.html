@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&amp;family=Mulish:wght@200;300;400;600;700&amp;display=swap">
   <style>
 
+
     html { scroll-behavior: smooth; scroll-snap-type: y proximity; scroll-padding-top: 76px; }
     body { margin: 0; background: #1c1c1c; color: #ffffff; font-family: 'Mulish', 'Proxima Nova', 'Helvetica Neue', Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
     a { color: #ffffff; text-decoration: none; } a:hover { color: #b4e940; }
@@ -181,6 +182,37 @@
     }
   
     :root { --lime: #b4e940; }
+  
+
+    /* chapter 01 posters swap for the YouTube player on click */
+    [data-player] { position: relative; }
+    .clipplay { position: absolute; transition: opacity 300ms ease; }
+
+    /* brands row: one line, smaller, slower */
+    .logorow { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+    .logorow .marquee { gap: 64px; padding-right: 64px; animation-duration: 56s; }
+    .logorow .logo { opacity: 0.42; }
+    .logorow .logo:hover { opacity: 0.9; }
+
+    /* team */
+    .teamgrid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 20px; }
+    .portrait { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #2d0c2f; }
+    .portrait img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms cubic-bezier(.2,.7,.2,1), filter 600ms ease; filter: saturate(0.75); }
+    .person:hover .portrait img, .person.flip .portrait img { transform: scale(1.06); filter: saturate(1.1); }
+    .portrait::after { content: ""; position: absolute; inset: auto 0 0 0; height: 3px; background: var(--lime); transform: scaleX(0); transform-origin: left center; transition: transform 500ms cubic-bezier(.7,0,.2,1); }
+    .person:hover .portrait::after, .person.flip .portrait::after { transform: scaleX(1); }
+
+    @media (max-width: 900px) {
+      .teamgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+      .logorow .marquee { gap: 44px; padding-right: 44px; }
+      .logorow .logo { height: 26px !important; }
+    }
+    @media (max-width: 520px) {
+      .teamgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+
+    :root { --lime: #b4e940; }
   </style>
 </head>
 <body>
@@ -195,7 +227,7 @@
         <a href="#model">3D</a>
         <a href="#motion">Animation</a>
         <a href="#brands">Branding</a>
-        <a href="#contact">Contact</a>
+        <a href="#team">Team</a>
       </nav>
       <a class="btn" href="#contact">Start a project</a>
     </div>
@@ -209,13 +241,13 @@
     <div class="stick" style="position: sticky; top: 0; height: 100vh; min-height: 640px; overflow: hidden;">
       <div class="hzoom" style="position: absolute; inset: 0;">
           <div data-hero-slide style="position: absolute; inset: 0; z-index: 1; clip-path: inset(0% 0 0 0); transition: clip-path 1200ms cubic-bezier(.7,0,.2,1);">
-            <img class="hpos" src="img/hero_girls.jpg" alt="Two smiling girls coloring with Crayola products" decoding="async" style="width: 100%; height: 100%; object-fit: cover; --pos: 20% 30%; --posm: 30% 40%; object-position: var(--pos); transform: scale(1); transition: transform 1600ms cubic-bezier(.2,.7,.2,1);">
+            <img class="hpos" src="img/hero_headphones.jpg" alt="Skullcandy headphones lit in red and violet" decoding="async" style="width: 100%; height: 100%; object-fit: cover; --pos: 50% 50%; --posm: 45% 50%; object-position: var(--pos); transform: scale(1); transition: transform 1600ms cubic-bezier(.2,.7,.2,1);">
           </div>
           <div data-hero-slide style="position: absolute; inset: 0; z-index: 2; clip-path: inset(100% 0 0 0); transition: clip-path 1200ms cubic-bezier(.7,0,.2,1);">
-            <img class="hpos" src="img/hero_peppers.jpg" alt="Red chili peppers scattered across a dark surface" decoding="async" style="width: 100%; height: 100%; object-fit: cover; --pos: 30% 50%; --posm: 45% 50%; object-position: var(--pos); transform: scale(1.12); transition: transform 1600ms cubic-bezier(.2,.7,.2,1);">
+            <img class="hpos" src="img/hero_mother.jpg" alt="A mother holding her smiling baby" decoding="async" style="width: 100%; height: 100%; object-fit: cover; --pos: 50% 35%; --posm: 55% 30%; object-position: var(--pos); transform: scale(1.12); transition: transform 1600ms cubic-bezier(.2,.7,.2,1);">
           </div>
           <div data-hero-slide style="position: absolute; inset: 0; z-index: 3; clip-path: inset(100% 0 0 0); transition: clip-path 1200ms cubic-bezier(.7,0,.2,1);">
-            <img class="hpos" src="img/hero_headphones.jpg" alt="Skullcandy headphones lit in red and violet" decoding="async" style="width: 100%; height: 100%; object-fit: cover; --pos: 30% 50%; --posm: 24% 50%; object-position: var(--pos); transform: scale(1.12); transition: transform 1600ms cubic-bezier(.2,.7,.2,1);">
+            <img class="hpos" src="img/hero_crayons.jpg" alt="Crayons fanned into a burst of pink and blue" decoding="async" style="width: 100%; height: 100%; object-fit: cover; --pos: 50% 50%; --posm: 50% 50%; object-position: var(--pos); transform: scale(1.12); transition: transform 1600ms cubic-bezier(.2,.7,.2,1);">
           </div>
       </div>
       <div class="hero-scrim" style="position: absolute; inset: 0; z-index: 5; background: linear-gradient(90deg, rgba(35,5,28,0) 28%, rgba(35,5,28,0.72) 56%, rgba(35,5,28,0.96) 80%), linear-gradient(180deg, rgba(28,28,28,0.55) 0%, rgba(28,28,28,0) 22%), radial-gradient(60% 80% at 100% 70%, rgba(101,0,40,0.55) 0%, rgba(101,0,40,0) 70%);"></div>
@@ -298,81 +330,56 @@
     </div>
   </section>
 
-  <section id="video" class="vpin" style="position: relative; height: 400vh; background: #000000;">
-    <div class="snap" aria-hidden="true" style="top: calc((300vh + 76px) * 0.28);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((300vh + 76px) * 0.5);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((300vh + 76px) * 0.615);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((300vh + 76px) * 0.73);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((300vh + 76px) * 0.845);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((300vh + 76px) * 0.96);"></div>
+  <section id="video" class="vpin" style="position: relative; height: 340vh; background: #000000;">
+    <div class="snap" aria-hidden="true" style="top: calc((240vh + 76px) * 0.3);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc((240vh + 76px) * 0.55);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc((240vh + 76px) * 0.8);"></div>
     <div class="stick vstage" style="position: sticky; top: 76px; height: calc(100vh - 76px); min-height: 560px; overflow: hidden; background: #000000;">
-      <div class="strip" style="position: absolute; left: 0; top: -12vh; height: calc(100% + 24vh); width: calc(5 * 106vw); --steps: 4; background: #070707;">
+      <div class="strip" style="position: absolute; left: 0; top: -12vh; height: calc(100% + 24vh); width: calc(3 * 106vw); --steps: 2; background: #070707;">
         <div class="sprocket" style="position: absolute; left: 0; right: 0; top: 3vh; height: 5vh;"></div>
         <div class="sprocket" style="position: absolute; left: 0; right: 0; bottom: 3vh; height: 5vh;"></div>
-            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(0 * 106vw); overflow: hidden; background: #000000;">
-              <img class="lzoom" src="img/ph_fans.jpg" alt="Lasko Summit Series tower fans: Pinnacle, Ascend, Apex, Elevation" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 20% 50%;">
-              <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 45%);"></div>
-              <div class="fcap fcapL" style="position: absolute; left: 5vw; right: 5vw; bottom: 4.5vw; display: flex; justify-content: space-between; align-items: flex-end; gap: 3vw;">
+            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(0 * 106vw); overflow: hidden; background: #000000;" data-player>
+              <img class="lzoom" src="img/film_lasko.jpg" alt="Black and white mountain peak from the Lasko Summit Series film" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%;">
+              <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0) 48%);"></div>
+              <div class="fcap fcapL" style="position: absolute; left: 5vw; right: 5vw; bottom: 4.5vw; display: flex; justify-content: space-between; align-items: flex-end; gap: 3vw; z-index: 20;">
                 <div style="display: flex; flex-direction: column; gap: 1vw;">
-                  <span style="font-size: 1.6vw; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Product film</span>
+                  <span style="font-size: 1.6vw; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Product introduction</span>
                   <span class="cap" style="font-size: 5.4vw; font-weight: 200;">Lasko Summit Series</span>
                 </div>
-                <button class="play" aria-label="Play Lasko Summit Series" style="width: 8vw; height: 8vw; min-width: 56px; min-height: 56px; flex-shrink: 0;"><svg width="38%" height="38%" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
+                <button class="play" data-yt="qu0w5-RIRnU" aria-label="Play Lasko Summit Series" style="width: 8vw; height: 8vw; min-width: 56px; min-height: 56px; flex-shrink: 0;"><svg width="38%" height="38%" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
               </div>
             </div>
-            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(1 * 106vw); overflow: hidden; background: #000000;">
-              <img class="" src="img/svc_video.jpg" alt="Stop-motion scene with an Igloo Village sign in snow" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;">
-              <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 45%);"></div>
-              <div class="fcap" style="position: absolute; left: 5vw; right: 5vw; bottom: 4.5vw; display: flex; justify-content: space-between; align-items: flex-end; gap: 3vw;">
+            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(1 * 106vw); overflow: hidden; background: #000000;" data-player>
+              <img class="" src="img/film_madcatter.jpg" alt="Mad Catter Coffee Roasters sign carved into wood beside a latte" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;">
+              <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0) 48%);"></div>
+              <div class="fcap" style="position: absolute; left: 5vw; right: 5vw; bottom: 4.5vw; display: flex; justify-content: space-between; align-items: flex-end; gap: 3vw; z-index: 20;">
                 <div style="display: flex; flex-direction: column; gap: 1vw;">
-                  <span style="font-size: 1.6vw; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Stop motion</span>
-                  <span class="cap" style="font-size: 5.4vw; font-weight: 200;">Winter Igloo</span>
+                  <span style="font-size: 1.6vw; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Product editorial</span>
+                  
                 </div>
-                <button class="play" aria-label="Play Winter Igloo" style="width: 8vw; height: 8vw; min-width: 56px; min-height: 56px; flex-shrink: 0;"><svg width="38%" height="38%" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
+                <button class="play" data-yt="BGpmPlMSrq8" aria-label="Play Mad Catter Coffee Roasters" style="width: 8vw; height: 8vw; min-width: 56px; min-height: 56px; flex-shrink: 0;"><svg width="38%" height="38%" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
               </div>
             </div>
-            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(2 * 106vw); overflow: hidden; background: #23051c;">
-              <span class="serif" aria-hidden="true" style="position: absolute; right: 4vw; bottom: -8vw; font-size: 36vw; line-height: 1; color: rgba(255,255,255,0.06);">fgx</span>
-              <span style="position: absolute; left: 5vw; top: 5vw; font-size: 1.6vw; letter-spacing: 0.3em; text-transform: uppercase; color: #bdb3ba;">Scene 03</span>
-              <div class="fcap" style="position: absolute; left: 5vw; right: 5vw; bottom: 4.5vw; display: flex; justify-content: space-between; align-items: flex-end; gap: 3vw;">
-                <div style="display: flex; flex-direction: column; gap: 1vw;">
-                  <span style="font-size: 1.6vw; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Product</span>
-                  <span class="cap" style="font-size: 5.4vw; font-weight: 200;">Crayola Halloween</span>
-                </div>
-                <button class="play" aria-label="Play Crayola Halloween" style="width: 8vw; height: 8vw; min-width: 56px; min-height: 56px; flex-shrink: 0;"><svg width="38%" height="38%" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
-              </div>
-            </div>
-            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(3 * 106vw); overflow: hidden; background: #23051c;">
-              <span class="serif" aria-hidden="true" style="position: absolute; right: 4vw; bottom: -8vw; font-size: 36vw; line-height: 1; color: rgba(255,255,255,0.06);">fgx</span>
-              <span style="position: absolute; left: 5vw; top: 5vw; font-size: 1.6vw; letter-spacing: 0.3em; text-transform: uppercase; color: #bdb3ba;">Scene 04</span>
-              <div class="fcap" style="position: absolute; left: 5vw; right: 5vw; bottom: 4.5vw; display: flex; justify-content: space-between; align-items: flex-end; gap: 3vw;">
-                <div style="display: flex; flex-direction: column; gap: 1vw;">
-                  <span style="font-size: 1.6vw; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Event</span>
-                  <span class="cap" style="font-size: 5.4vw; font-weight: 200;">Toy Fair 2025</span>
-                </div>
-                <button class="play" aria-label="Play Toy Fair 2025" style="width: 8vw; height: 8vw; min-width: 56px; min-height: 56px; flex-shrink: 0;"><svg width="38%" height="38%" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
-              </div>
-            </div>
-            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(4 * 106vw); overflow: hidden; background: var(--lime);">
-              <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3vw; text-align: center; color: #1c1c1c;">
-                <span style="font-size: 2vw; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700;">Video Highlights</span>
+            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(2 * 106vw); overflow: hidden; background: var(--lime);" data-player>
+              <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3vw; text-align: center; color: #1c1c1c; padding: 20px;">
+                <span style="font-size: 2vw; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700;">Video highlights</span>
                 <span class="cap" style="font-size: 7vw; font-weight: 300;">The 2025 Reel</span>
-                <button aria-label="Play the 2025 highlight reel" style="width: 9vw; height: 9vw; min-width: 64px; min-height: 64px; border-radius: 999px; border: 0; background: #1c1c1c; color: var(--lime); display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="40%" height="40%" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
+                <button data-yt="O5dRaH55OzM" aria-label="Play the 2025 highlight reel" style="width: 9vw; height: 9vw; min-width: 64px; min-height: 64px; border-radius: 999px; border: 0; background: #1c1c1c; color: var(--lime); display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="40%" height="40%" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
               </div>
             </div>
       </div>
       <div class="lbt" style="position: absolute; left: 0; right: 0; top: 0; height: 16%; background: #000000;"></div>
       <div class="lbb" style="position: absolute; left: 0; right: 0; bottom: 0; height: 16%; background: #000000;"></div>
-      <div class="vA wrap" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; gap: 26px; pointer-events: none; background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 55%);">
+      <div class="vA wrap" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; gap: 24px; pointer-events: none; background: linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0) 55%);">
         <div class="chap"><span class="num">01</span><span class="bar"></span><span class="lab">Videography</span></div>
-        <div style="font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Now showing</div>
-        <h2 class="h2" style="font-size: clamp(44px, 6vw, 96px); max-width: 640px;">Lasko Summit Series</h2>
+        <h2 class="h2" style="font-size: clamp(40px, 5.4vw, 88px); max-width: 640px;">Lasko Summit Series</h2>
+        <p class="lede" style="max-width: 480px; font-size: clamp(15px, 1.2vw, 19px);">Concept, shoot, edit and delivery, all in-house. Every decision serves the story: lighting that carries emotion, pacing that holds attention.</p>
         <span style="font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: #d9d0d6;">Scroll to roll the film</span>
       </div>
       <div class="vB wrap" style="position: absolute; left: 0; right: 0; top: 3.2vh; display: flex; justify-content: space-between; align-items: center; gap: 24px; pointer-events: none;">
         <div style="display: flex; align-items: center; gap: 18px;">
           <span class="serif" style="font-size: 34px; line-height: 1; color: var(--lime);">01</span>
-          <h3 style="margin: 0; font-size: clamp(16px, 1.4vw, 20px); letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600;">Video Highlights</h3>
+          <h3 style="margin: 0; font-size: clamp(16px, 1.4vw, 20px); letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600;">Videography</h3>
         </div>
         <span style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #bdb3ba;">Keep scrolling →</span>
       </div>
@@ -383,64 +390,42 @@
     <div class="vmob" style="display: none; position: relative; background: #070707; padding-top: 88px; padding-bottom: 72px;">
       <div class="wrap" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px;">
         <div class="chap"><span class="num">01</span><span class="bar"></span><span class="lab">Videography</span></div>
-        <div style="font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Now showing · Video Highlights</div>
-        <h2 class="h2" style="font-size: 44px;">Lasko Summit Series</h2>
+        <h2 class="h2" style="font-size: 40px;">Lasko Summit Series</h2>
+        <p class="lede" style="font-size: 16px;">Concept, shoot, edit and delivery, all in-house. Every decision serves the story.</p>
       </div>
       <div style="position: relative; padding-left: 40px; padding-right: 40px;">
         <div class="sprocket-v" style="position: absolute; top: 0; bottom: 0; left: 12px; width: 16px;"></div>
         <div class="sprocket-v" style="position: absolute; top: 0; bottom: 0; right: 12px; width: 16px;"></div>
         <div style="display: flex; flex-direction: column; gap: 16px;">
-          <div class="mframe" style="position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #000000;">
-              <img src="img/ph_fans.jpg" alt="Lasko Summit Series tower fans: Pinnacle, Ascend, Apex, Elevation" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 20% 50%;">
-              <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);"></div>
-              <div style="position: absolute; left: 20px; right: 20px; bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px;">
+            <div class="mframe" style="position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #000000;" data-player>
+              <img class="" src="img/film_lasko.jpg" alt="Black and white mountain peak from the Lasko Summit Series film" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%;">
+              <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0) 48%);"></div>
+              <div class="fcap" style="position: absolute; left: 20px; right: 20px; bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; gap: 3vw; z-index: 20;">
                 <div style="display: flex; flex-direction: column; gap: 6px;">
-                  <span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Product film</span>
+                  <span style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Product introduction</span>
                   <span class="cap" style="font-size: 28px; font-weight: 200;">Lasko Summit Series</span>
                 </div>
-                <button class="play" aria-label="Play Lasko Summit Series" style="width: 56px; height: 56px; flex-shrink: 0;"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
+                <button class="play" data-yt="qu0w5-RIRnU" aria-label="Play Lasko Summit Series" style="width: 56px; height: 56px; min-width: 56px; min-height: 56px; flex-shrink: 0;"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
               </div>
-          </div>
-          <div class="mframe" style="position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #000000;">
-              <img src="img/svc_video.jpg" alt="Stop-motion scene with an Igloo Village sign in snow" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;">
-              <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);"></div>
-              <div style="position: absolute; left: 20px; right: 20px; bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px;">
+            </div>
+            <div class="mframe" style="position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #000000;" data-player>
+              <img class="" src="img/film_madcatter.jpg" alt="Mad Catter Coffee Roasters sign carved into wood beside a latte" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;">
+              <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0) 48%);"></div>
+              <div class="fcap" style="position: absolute; left: 20px; right: 20px; bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; gap: 3vw; z-index: 20;">
                 <div style="display: flex; flex-direction: column; gap: 6px;">
-                  <span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Stop motion</span>
-                  <span class="cap" style="font-size: 28px; font-weight: 200;">Winter Igloo</span>
+                  <span style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Product editorial</span>
+                  
                 </div>
-                <button class="play" aria-label="Play Winter Igloo" style="width: 56px; height: 56px; flex-shrink: 0;"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
+                <button class="play" data-yt="BGpmPlMSrq8" aria-label="Play Mad Catter Coffee Roasters" style="width: 56px; height: 56px; min-width: 56px; min-height: 56px; flex-shrink: 0;"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
               </div>
-          </div>
-          <div class="mframe" style="position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #23051c;">
-              <span class="serif" aria-hidden="true" style="position: absolute; right: 8px; bottom: -40px; font-size: 200px; line-height: 1; color: rgba(255,255,255,0.06);">fgx</span>
-              <span style="position: absolute; left: 20px; top: 20px; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #bdb3ba;">Scene 03</span>
-              <div style="position: absolute; left: 20px; right: 20px; bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px;">
-                <div style="display: flex; flex-direction: column; gap: 6px;">
-                  <span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Product</span>
-                  <span class="cap" style="font-size: 28px; font-weight: 200;">Crayola Halloween</span>
-                </div>
-                <button class="play" aria-label="Play Crayola Halloween" style="width: 56px; height: 56px; flex-shrink: 0;"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
-              </div>
-          </div>
-          <div class="mframe" style="position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #23051c;">
-              <span class="serif" aria-hidden="true" style="position: absolute; right: 8px; bottom: -40px; font-size: 200px; line-height: 1; color: rgba(255,255,255,0.06);">fgx</span>
-              <span style="position: absolute; left: 20px; top: 20px; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #bdb3ba;">Scene 04</span>
-              <div style="position: absolute; left: 20px; right: 20px; bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px;">
-                <div style="display: flex; flex-direction: column; gap: 6px;">
-                  <span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lime); font-weight: 700;">Event</span>
-                  <span class="cap" style="font-size: 28px; font-weight: 200;">Toy Fair 2025</span>
-                </div>
-                <button class="play" aria-label="Play Toy Fair 2025" style="width: 56px; height: 56px; flex-shrink: 0;"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
-              </div>
-          </div>
-          <div class="mframe" style="position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--lime);">
+            </div>
+            <div class="mframe" style="position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--lime);" data-player>
               <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; text-align: center; color: #1c1c1c; padding: 20px;">
-                <span style="font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700;">Video Highlights</span>
+                <span style="font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700;">Video highlights</span>
                 <span class="cap" style="font-size: 40px; font-weight: 300;">The 2025 Reel</span>
-                <button aria-label="Play the 2025 highlight reel" style="width: 72px; height: 72px; border-radius: 999px; border: 0; background: #1c1c1c; color: var(--lime); display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="24" height="24" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
+                <button data-yt="O5dRaH55OzM" aria-label="Play the 2025 highlight reel" style="width: 72px; height: 72px; min-width: 64px; min-height: 64px; border-radius: 999px; border: 0; background: #1c1c1c; color: var(--lime); display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="24" height="24" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
               </div>
-          </div>
+            </div>
         </div>
       </div>
     </div>
@@ -481,16 +466,16 @@
         <div style="display: flex; flex-direction: column; align-items: center; gap: 28px;">
           <div class="printstack" style="position: relative; height: min(62vh, 600px); aspect-ratio: 4 / 5; touch-action: pan-y;">
               <div class="print" data-print style="transform: translate(0px, 0px) rotate(0deg) scale(1); opacity: 1; filter: brightness(1); z-index: 10;">
-                <img src="img/ph_camera.jpg" alt="Camera product shot with a mirrored reflection on red" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;">
+                <img src="img/photo_product.jpg" alt="Fujifilm camera on a deep red surface" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;">
               </div>
               <div class="print" data-print style="transform: translate(38px, -24px) rotate(5deg) scale(0.95); opacity: 1; filter: brightness(0.5); z-index: 9;">
-                <img src="img/ph_sweater.jpg" alt="Woman on a video call with a Lasko heater on the shelf" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 60% 40%;">
+                <img src="img/photo_lifestyle.jpg" alt="Woman on a video call in a green sweater" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 55% 40%;">
               </div>
               <div class="print" data-print style="transform: translate(-34px, -40px) rotate(-6deg) scale(0.9); opacity: 1; filter: brightness(0.35); z-index: 8;">
-                <img src="img/vs_colonial.jpg" alt="Colonial theatre marquee at night with light trails" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%;">
+                <img src="img/photo_architecture.jpg" alt="The Colonial theatre marquee at night with light trails" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;">
               </div>
               <div class="print" data-print style="transform: translate(0px, -40px) rotate(0deg) scale(0.86); opacity: 0; filter: brightness(0.3); z-index: 7;">
-                <img src="img/vs_kid.jpg" alt="Black and white portrait of a wide-eyed boy" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;">
+                <img src="img/photo_editorial.jpg" alt="Black and white portrait of a wide-eyed boy" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;">
               </div>
           </div>
           <div style="display: flex; align-items: center; gap: 18px; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #bdb3ba;">
@@ -506,9 +491,10 @@
 
   <section id="model" class="sec" style="background: #1c1c1c; padding-top: 140px; padding-bottom: 140px;">
     <div class="wrap split" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 72px; align-items: center;">
-      <div style="display: flex; flex-direction: column; gap: 32px;">
+      <div style="display: flex; flex-direction: column; gap: 28px;">
         <div class="chap rv"><span class="num">03</span><span class="bar"></span><span class="lab">3D Modeling</span></div>
         <h2 class="h2 rv">Realistic 3D Product Modeling</h2>
+        <p class="lede rv">Our 3D modeling enables the creation of highly realistic product imagery, bringing designs to life with detailed textures and dynamic lighting.</p>
         <div class="rv" style="display: flex; flex-direction: column; gap: 12px; max-width: 420px;">
           <label for="ba" style="font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #bdb3ba;">Drag to compare model and render</label>
           <div style="position: relative; height: 4px; background: rgba(255,255,255,0.14);">
@@ -517,8 +503,8 @@
         </div>
       </div>
       <div class="rv" style="position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #2a2a2a; user-select: none;">
-        <img src="img/model_split.jpg" alt="Final render of a product stand" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
-        <img id="baBefore" src="img/model_clay.jpg" alt="Untextured model of the same product stand" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; clip-path: inset(0 53% 0 0);">
+        <img src="img/model_final.jpg" alt="Finished render with lighting and materials" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+        <img id="baBefore" src="img/model_clay.jpg" alt="The same model before lighting and materials" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; clip-path: inset(0 53% 0 0);">
         <div id="baLine" style="position: absolute; top: 0; bottom: 0; left: 47%; width: 2px; margin-left: -1px; background: var(--lime); pointer-events: none;">
           <div class="ba-handle" style="position: absolute; top: 50%; left: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 999px; background: #1c1c1c; border: 2px solid var(--lime); display: flex; align-items: center; justify-content: center; color: var(--lime);">
             <svg width="24" height="12" viewBox="0 0 24 12" aria-hidden="true"><path d="M7 1 2 6l5 5M17 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8"></path></svg>
@@ -544,47 +530,39 @@
           </div>
           <div role="group" aria-label="Choose an animation" style="display: flex; flex-direction: column; gap: 4px;">
               <button data-clip aria-pressed="true" style="min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 4px; background: transparent; border: 0; border-bottom: 1px solid rgba(255,255,255,0.12); color: #ffffff; cursor: pointer; text-align: left; transition: color 300ms ease;">
-                <span style="font-size: clamp(17px, 1.5vw, 22px); font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase;">Crayola Limited Edition</span>
+                <span style="font-size: clamp(17px, 1.5vw, 22px); font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase;">Lasko product animation</span>
                 <span data-kind style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); opacity: 1;">3D</span>
               </button>
               <button data-clip aria-pressed="false" style="min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 4px; background: transparent; border: 0; border-bottom: 1px solid rgba(255,255,255,0.12); color: #9d8f99; cursor: pointer; text-align: left; transition: color 300ms ease;">
-                <span style="font-size: clamp(17px, 1.5vw, 22px); font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase;">Lasko Product Animation</span>
-                <span data-kind style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); opacity: 0.5;">3D</span>
-              </button>
-              <button data-clip aria-pressed="false" style="min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 4px; background: transparent; border: 0; border-bottom: 1px solid rgba(255,255,255,0.12); color: #9d8f99; cursor: pointer; text-align: left; transition: color 300ms ease;">
-                <span style="font-size: clamp(17px, 1.5vw, 22px); font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase;">Space Journey</span>
-                <span data-kind style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); opacity: 0.5;">2D</span>
+                <span style="font-size: clamp(17px, 1.5vw, 22px); font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase;">Crayola characters</span>
+                <span data-kind style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); opacity: 0.5;">3D / 2D</span>
               </button>
           </div>
         </div>
-        <div class="pinzoom" style="position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #140311; box-shadow: 0 40px 120px rgba(0,0,0,0.55);">
-            <div class="frame-swap" data-clip-frame style="position: absolute; inset: 0; opacity: 1;"><img src="img/svc_anim.jpg" alt="Crayola Limited Edition" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="frame-swap" data-clip-frame style="position: absolute; inset: 0; opacity: 0;"><div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; padding: 32px; background: radial-gradient(70% 80% at 100% 0%, rgba(101,0,40,0.8) 0%, rgba(101,0,40,0) 70%), #2a1226;">
-                <span class="serif" aria-hidden="true" style="position: absolute; right: 16px; top: -40px; font-size: 220px; line-height: 1; color: rgba(255,255,255,0.06);">fgx</span>
-                <span style="font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lime); font-weight: 700;">3D animation</span>
-                <span class="cap" style="font-size: clamp(28px, 3vw, 44px);">Lasko Product Animation</span>
-              </div></div>
-            <div class="frame-swap" data-clip-frame style="position: absolute; inset: 0; opacity: 0;"><div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; padding: 32px; background: radial-gradient(70% 80% at 100% 0%, rgba(101,0,40,0.8) 0%, rgba(101,0,40,0) 70%), #2a1226;">
-                <span class="serif" aria-hidden="true" style="position: absolute; right: 16px; top: -40px; font-size: 220px; line-height: 1; color: rgba(255,255,255,0.06);">fgx</span>
-                <span style="font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lime); font-weight: 700;">2D animation</span>
-                <span class="cap" style="font-size: clamp(28px, 3vw, 44px);">Space Journey</span>
-              </div></div>
-          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
-            <button class="play" aria-label="Play the selected animation" style="width: 88px; height: 88px;"><svg width="26" height="26" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
+        <div class="pinzoom" data-player style="position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #140311; box-shadow: 0 40px 120px rgba(0,0,0,0.55);">
+            <div class="frame-swap" data-clip-frame style="position: absolute; inset: 0; opacity: 1;">
+              <img src="img/anim_lasko.jpg" alt="Lasko fan animation frame showing 34% faster wind speed and 40% quieter" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="frame-swap" data-clip-frame style="position: absolute; inset: 0; opacity: 0;">
+              <img src="img/anim_crayola.jpg" alt="Animated Crayola crayon characters on a playing field" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 20;">
+            <button class="play clipplay" data-yt="3TxxATMmuKM" aria-label="Play Lasko product animation" style="width: 88px; height: 88px; opacity: 1; pointer-events: auto;"><svg width="26" height="26" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
+            <button class="play clipplay" data-yt="phspu_aT8ZQ" aria-label="Play Crayola characters" style="width: 88px; height: 88px; opacity: 0; pointer-events: none;"><svg width="26" height="26" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="brands" class="sec" style="background: #1c1c1c; padding-top: 140px; padding-bottom: 160px; overflow: hidden;">
+  <section id="brands" class="sec" style="background: #1c1c1c; padding-top: 140px; padding-bottom: 150px; overflow: hidden;">
     <div class="wrap split" style="display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 72px; align-items: center;">
       <div style="display: flex; flex-direction: column; gap: 26px;">
         <div class="chap rv"><span class="num">05</span><span class="bar"></span><span class="lab">Branding</span></div>
         <h2 class="h2 rv">Outstanding Brand Identities</h2>
         <p class="lede rv">We build brands that resonate—fusing visual storytelling and strategy to capture attention and inspire loyalty.</p>
         <div style="border-top: 1px solid rgba(255,255,255,0.16); padding-top: 24px; display: flex; flex-direction: column; gap: 8px;">
-          <span style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #bdb3ba;"><span id="brandCount">01 / 05</span> · Featured</span>
+          <span style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #bdb3ba;"><span id="brandCount">01 / 06</span> · Featured</span>
           <span id="brandTitle" class="cap" style="font-size: clamp(30px, 3vw, 46px);">RIDGID</span>
           <span id="brandKind" style="font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); font-weight: 600;">Campaign key art</span>
         </div>
@@ -594,95 +572,161 @@
       </div>
       <div class="stage rv" style="position: relative; height: 540px; touch-action: pan-y;">
           <button class="deal" data-card aria-label="Deal the next brand" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 0), calc(var(--lift) * 0)) rotate(0deg) scale(1.000); z-index: 20; filter: brightness(1); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/br_ridgid.jpg" alt="RIDGID miter saw with Tough Built Tools type" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="img/brand_ridgid.jpg" alt="RIDGID miter saw with Tough Built Tools type" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: var(--lime); color: #1c1c1c; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">RIDGID</span>
           </button>
           <button class="deal" data-card aria-label="Bring Jositos to the front" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 1), calc(var(--lift) * 1)) rotate(3deg) scale(0.965); z-index: 19; filter: brightness(0.56); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/br_jositos.jpg" alt="Jositos rolled corn chips packaging art" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="img/brand_jositos.jpg" alt="Jositos rolled corn chips packaging art" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Jositos</span>
           </button>
           <button class="deal" data-card aria-label="Bring Army National Guard to the front" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 2), calc(var(--lift) * 2)) rotate(6deg) scale(0.930); z-index: 18; filter: brightness(0.50); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/br_ang.jpg" alt="Army National Guard recruiting piece: The next greatest generation is now" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="img/brand_ang.jpg" alt="Army National Guard recruiting piece: The next greatest generation is now" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Army National Guard</span>
           </button>
           <button class="deal" data-card aria-label="Bring Skullcandy to the front" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 3), calc(var(--lift) * 3)) rotate(9deg) scale(0.895); z-index: 17; filter: brightness(0.44); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/br_skull.jpg" alt="Skullcandy power bank on textured metal" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="img/brand_skullcandy.jpg" alt="Skullcandy power bank on textured metal" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Skullcandy</span>
           </button>
           <button class="deal" data-card aria-label="Bring Airon to the front" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 4), calc(var(--lift) * 4)) rotate(12deg) scale(0.860); z-index: 16; filter: brightness(0.38); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/br_airon.jpg" alt="Airon zero contact bearing tonearm ad" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="img/brand_airon.jpg" alt="Airon zero contact bearing tonearm advertisement" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Airon</span>
+          </button>
+          <button class="deal" data-card aria-label="Bring Turtleback to the front" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 5), calc(var(--lift) * 5)) rotate(15deg) scale(0.825); z-index: 15; filter: brightness(0.32); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
+            <img src="img/brand_turtleback.jpg" alt="Turtleback EveryWear Armor ad featuring Percival the gorilla" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Turtleback</span>
           </button>
       </div>
     </div>
   </section>
 
-  <section id="clients" style="position: relative; background: #23051c; overflow: hidden;">
-    <div style="height: 4px; background: var(--lime);"></div>
-    <div class="wm" aria-hidden="true" style="left: -20px; bottom: -110px; font-size: 320px;">fgx</div>
-    <div class="wrap sec" style="position: relative; padding-top: 110px; padding-bottom: 40px; display: flex; justify-content: flex-end;">
-      <h2 class="h2 rv" style="text-align: right;">Brands We’ve Supported</h2>
+  <section id="clients" style="position: relative; background: #23051c; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.08);">
+    <div class="wrap" style="padding-top: 64px; padding-bottom: 20px; display: flex; align-items: baseline; gap: 20px;">
+      <h2 style="margin: 0; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; color: #ffffff;">Brands we’ve supported</h2>
+      <span style="height: 1px; flex-grow: 1; background: rgba(255,255,255,0.14);"></span>
     </div>
-    <div class="mq-wrap" style="position: relative; display: flex; flex-direction: column; gap: 56px; padding-top: 40px; padding-bottom: 120px;">
-        <div style="overflow: hidden;">
-          <div class="marquee">
-            <img class="logo" src="img/logo_106.png" alt="Lasko" loading="lazy" decoding="async" style="height: 44px;">
-            <img class="logo" src="img/logo_104.png" alt="BIC" loading="lazy" decoding="async" style="height: 58px;">
-            <img class="logo" src="img/logo_108.png" alt="Skullcandy" loading="lazy" decoding="async" style="height: 46px;">
-            <img class="logo" src="img/logo_110.png" alt="CTDI" loading="lazy" decoding="async" style="height: 56px;">
-            <img class="logo" src="img/logo_100.png" alt="Airon" loading="lazy" decoding="async" style="height: 64px;">
-            <img class="logo" src="img/logo_102.png" alt="Crayola" loading="lazy" decoding="async" style="height: 56px;">
-            <img class="logo" src="img/logo_106.png" alt="Lasko" loading="lazy" decoding="async" style="height: 44px;">
-            <img class="logo" src="img/logo_104.png" alt="BIC" loading="lazy" decoding="async" style="height: 58px;">
-            <img class="logo" src="img/logo_108.png" alt="Skullcandy" loading="lazy" decoding="async" style="height: 46px;">
-            <img class="logo" src="img/logo_110.png" alt="CTDI" loading="lazy" decoding="async" style="height: 56px;">
-            <img class="logo" src="img/logo_100.png" alt="Airon" loading="lazy" decoding="async" style="height: 64px;">
-            <img class="logo" src="img/logo_102.png" alt="Crayola" loading="lazy" decoding="async" style="height: 56px;">
-          </div>
-        </div>
-        <div style="overflow: hidden;">
-          <div class="marquee rev">
-            <img class="logo" src="img/logo_112.png" alt="Army National Guard" loading="lazy" decoding="async" style="height: 70px;">
-            <img class="logo" src="img/logo_116.png" alt="Marriott Hotels & Resorts" loading="lazy" decoding="async" style="height: 58px;">
-            <img class="logo" src="img/logo_114.png" alt="Technicolor" loading="lazy" decoding="async" style="height: 52px;">
-            <img class="logo" src="img/logo_120.png" alt="Comcast" loading="lazy" decoding="async" style="height: 56px;">
-            <img class="logo" src="img/logo_118.png" alt="Jositos" loading="lazy" decoding="async" style="height: 58px;">
-            <img class="logo" src="img/logo_112.png" alt="Army National Guard" loading="lazy" decoding="async" style="height: 70px;">
-            <img class="logo" src="img/logo_116.png" alt="Marriott Hotels & Resorts" loading="lazy" decoding="async" style="height: 58px;">
-            <img class="logo" src="img/logo_114.png" alt="Technicolor" loading="lazy" decoding="async" style="height: 52px;">
-            <img class="logo" src="img/logo_120.png" alt="Comcast" loading="lazy" decoding="async" style="height: 56px;">
-            <img class="logo" src="img/logo_118.png" alt="Jositos" loading="lazy" decoding="async" style="height: 58px;">
-          </div>
-        </div>
+    <div class="mq-wrap logorow" style="padding-top: 18px; padding-bottom: 64px;">
+      <div class="marquee">
+            <img class="logo" src="img/logo_106.png" alt="Lasko" loading="lazy" decoding="async" style="height: 30px;">
+            <img class="logo" src="img/logo_104.png" alt="BIC" loading="lazy" decoding="async" style="height: 38px;">
+            <img class="logo" src="img/logo_108.png" alt="Skullcandy" loading="lazy" decoding="async" style="height: 30px;">
+            <img class="logo" src="img/logo_110.png" alt="CTDI" loading="lazy" decoding="async" style="height: 36px;">
+            <img class="logo" src="img/logo_100.png" alt="Airon" loading="lazy" decoding="async" style="height: 42px;">
+            <img class="logo" src="img/logo_102.png" alt="Crayola" loading="lazy" decoding="async" style="height: 36px;">
+            <img class="logo" src="img/logo_112.png" alt="Army National Guard" loading="lazy" decoding="async" style="height: 46px;">
+            <img class="logo" src="img/logo_116.png" alt="Marriott Hotels & Resorts" loading="lazy" decoding="async" style="height: 38px;">
+            <img class="logo" src="img/logo_114.png" alt="Technicolor" loading="lazy" decoding="async" style="height: 34px;">
+            <img class="logo" src="img/logo_120.png" alt="Comcast" loading="lazy" decoding="async" style="height: 36px;">
+            <img class="logo" src="img/logo_118.png" alt="Jositos" loading="lazy" decoding="async" style="height: 38px;">
+            <img class="logo" src="img/logo_106.png" alt="Lasko" loading="lazy" decoding="async" style="height: 30px;">
+            <img class="logo" src="img/logo_104.png" alt="BIC" loading="lazy" decoding="async" style="height: 38px;">
+            <img class="logo" src="img/logo_108.png" alt="Skullcandy" loading="lazy" decoding="async" style="height: 30px;">
+            <img class="logo" src="img/logo_110.png" alt="CTDI" loading="lazy" decoding="async" style="height: 36px;">
+            <img class="logo" src="img/logo_100.png" alt="Airon" loading="lazy" decoding="async" style="height: 42px;">
+            <img class="logo" src="img/logo_102.png" alt="Crayola" loading="lazy" decoding="async" style="height: 36px;">
+            <img class="logo" src="img/logo_112.png" alt="Army National Guard" loading="lazy" decoding="async" style="height: 46px;">
+            <img class="logo" src="img/logo_116.png" alt="Marriott Hotels & Resorts" loading="lazy" decoding="async" style="height: 38px;">
+            <img class="logo" src="img/logo_114.png" alt="Technicolor" loading="lazy" decoding="async" style="height: 34px;">
+            <img class="logo" src="img/logo_120.png" alt="Comcast" loading="lazy" decoding="async" style="height: 36px;">
+            <img class="logo" src="img/logo_118.png" alt="Jositos" loading="lazy" decoding="async" style="height: 38px;">
+      </div>
     </div>
   </section>
 
-  <section id="contact" style="background: #23051c;">
-    <div class="split" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 720px;">
-      <div style="position: relative; overflow: hidden; min-height: 420px;">
-        <img class="fl" src="img/contact_bts.jpg" alt="FGX videographer framing a shot of a hand-painted ball on set" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
-        <div class="wm drift" aria-hidden="true" style="left: 40px; bottom: -80px; font-size: 380px; color: rgba(67,42,61,0.72);">fgx</div>
-      </div>
-      <div class="ccol" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; text-align: right; gap: 36px; padding: 88px 64px; background: radial-gradient(60% 70% at 100% 60%, rgba(101,0,40,0.7) 0%, rgba(101,0,40,0) 70%), #23051c;">
-        <img class="rv" src="img/fgx_logo.png" alt="fgx creative" loading="lazy" decoding="async" style="width: min(380px, 78%); height: auto;">
-        <h2 class="h2 rv" style="font-size: clamp(30px, 3.2vw, 48px);">Let’s make your brand unforgettable.</h2>
-        <address class="rv" style="font-style: normal; display: flex; flex-direction: column; gap: 8px; font-size: clamp(15px, 1.35vw, 20px); font-weight: 300; letter-spacing: 0.16em; text-transform: uppercase; line-height: 1.5; color: #d9d0d6;">
-          <span>905 Harrison Street, Suite 101</span>
-          <span>Allentown, PA 18103</span>
-          <span style="height: 16px;"></span>
-          <a href="tel:+16108449881">(610) 844-9881</a>
-          <a href="mailto:studio@fgxcreative.com">studio@fgxcreative.com</a>
-          <a href="https://www.fgxcreative.com">www.fgxcreative.com</a>
-        </address>
-        <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; align-items: center;">
-          <a class="btn" href="mailto:studio@fgxcreative.com?subject=Project%20enquiry" style="min-height: 60px; padding: 0 36px; font-size: 15px;">Email us</a>
-          <button id="copyEmail" class="ghost" type="button">Copy address</button>
+  <section id="team" class="sec" style="background: #1c1c1c; padding-top: 130px; padding-bottom: 130px;">
+    <div class="wrap" style="display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap;">
+        <div style="display: flex; flex-direction: column; gap: 18px; max-width: 680px;">
+          <div class="chap rv"><span class="num">06</span><span class="bar"></span><span class="lab">The studio</span></div>
+          <h2 class="h2 rv">Meet Your Creative Partners</h2>
         </div>
+        <p class="lede rv" style="max-width: 420px; font-size: clamp(15px, 1.2vw, 18px);">You work directly with the people who shoot, model, animate and design your project. No layers in between.</p>
+      </div>
+      <div class="teamgrid rv">
+          <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
+            <div class="portrait">
+              <img src="img/team_patrick.jpg" alt="Patrick Shuck" loading="lazy" decoding="async">
+            </div>
+            <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
+              <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Patrick Shuck</span>
+              <span style="font-size: 10px; letter-spacing: 0.1em; line-height: 1.35; text-transform: uppercase; color: #bdb3ba;">President / CEO</span>
+            </figcaption>
+          </figure>
+          <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
+            <div class="portrait">
+              <img src="img/team_derek.jpg" alt="Derek Rahm" loading="lazy" decoding="async">
+            </div>
+            <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
+              <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Derek Rahm</span>
+              <span style="font-size: 10px; letter-spacing: 0.1em; line-height: 1.35; text-transform: uppercase; color: #bdb3ba;">Studio Supervisor</span>
+            </figcaption>
+          </figure>
+          <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
+            <div class="portrait">
+              <img src="img/team_james.jpg" alt="James Hartranft" loading="lazy" decoding="async">
+            </div>
+            <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
+              <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">James Hartranft</span>
+              <span style="font-size: 10px; letter-spacing: 0.1em; line-height: 1.35; text-transform: uppercase; color: #bdb3ba;">Post Production Supervisor</span>
+            </figcaption>
+          </figure>
+          <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
+            <div class="portrait">
+              <img src="img/team_andre.jpg" alt="Andre Ewing" loading="lazy" decoding="async">
+            </div>
+            <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
+              <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Andre Ewing</span>
+              <span style="font-size: 10px; letter-spacing: 0.1em; line-height: 1.35; text-transform: uppercase; color: #bdb3ba;">Studio Photographer</span>
+            </figcaption>
+          </figure>
+          <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
+            <div class="portrait">
+              <img src="img/team_grace.jpg" alt="Grace DeOliveira" loading="lazy" decoding="async">
+            </div>
+            <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
+              <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Grace DeOliveira</span>
+              <span style="font-size: 10px; letter-spacing: 0.1em; line-height: 1.35; text-transform: uppercase; color: #bdb3ba;">Marketing & Production Coordinator</span>
+            </figcaption>
+          </figure>
+          <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
+            <div class="portrait">
+              <img src="img/team_amie.jpg" alt="Amie Oravec" loading="lazy" decoding="async">
+            </div>
+            <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
+              <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Amie Oravec</span>
+              <span style="font-size: 10px; letter-spacing: 0.1em; line-height: 1.35; text-transform: uppercase; color: #bdb3ba;">Pre Production Supervisor</span>
+            </figcaption>
+          </figure>
+          <figure class="person" style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
+            <div class="portrait">
+              <img src="img/team_tazzi.jpg" alt="Tazzi" loading="lazy" decoding="async">
+            </div>
+            <figcaption style="display: flex; flex-direction: column; gap: 3px; min-height: 52px;">
+              <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.04em;">Tazzi</span>
+              <span style="font-size: 10px; letter-spacing: 0.1em; line-height: 1.35; text-transform: uppercase; color: #bdb3ba;">Human Resources</span>
+            </figcaption>
+          </figure>
       </div>
     </div>
+  </section>
+
+  <section id="contact" style="position: relative; background: radial-gradient(70% 90% at 50% 100%, rgba(101,0,40,0.75) 0%, rgba(101,0,40,0) 70%), #23051c; overflow: hidden;">
     <div style="height: 4px; background: var(--lime);"></div>
+    <div class="wm" aria-hidden="true" style="left: 50%; transform: translateX(-50%); bottom: -120px; font-size: 420px;">fgx</div>
+    <div class="wrap" style="position: relative; padding-top: 130px; padding-bottom: 130px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 34px;">
+      <img class="rv" src="img/fgx_logo.png" alt="fgx creative" loading="lazy" decoding="async" style="width: min(300px, 70%); height: auto;">
+      <h2 class="h2 rv" style="font-size: clamp(34px, 4.6vw, 72px); max-width: 900px;">Let’s make your brand unforgettable.</h2>
+      <div class="rv" style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; align-items: center;">
+        <a class="btn" href="mailto:studio@fgxcreative.com?subject=Project%20enquiry" style="min-height: 62px; padding: 0 40px; font-size: 15px;">Email the studio</a>
+        <button id="copyEmail" class="ghost" type="button">Copy address</button>
+      </div>
+      <address class="rv" style="font-style: normal; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 24px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #bdb3ba;">
+        <span>905 Harrison Street, Suite 101, Allentown, PA 18103</span>
+        <a href="tel:+16108449881">(610) 844-9881</a>
+        <a href="https://www.fgxcreative.com">www.fgxcreative.com</a>
+      </address>
+    </div>
     <footer style="background: #1c1c1c;">
-      <div class="wrap band" style="min-height: 110px; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 13px; letter-spacing: 0.12em; color: #a89da5;">
+      <div class="wrap band" style="min-height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 13px; letter-spacing: 0.12em; color: #a89da5;">
         <span>© 2026 FGX Creative. All rights reserved.</span>
         <a href="#top" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-transform: uppercase; letter-spacing: 0.2em;">Back to top
           <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 12V2M2.5 6.5 7 2l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>
@@ -711,7 +755,8 @@
     ['Jositos', 'Packaging'],
     ['Army National Guard', 'Recruiting'],
     ['Skullcandy', 'Product art'],
-    ['Airon', 'Advertising']
+    ['Airon', 'Advertising'],
+    ['Turtleback', 'Product campaign']
   ];
   var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
 
@@ -826,7 +871,6 @@
     scrollToStage(photoEl, HEADER, i, prints.length);
   }
 
-  // events
   heroSteps.forEach(function (b, i) {
     b.addEventListener('click', function () { hero = i; paintHero(); scrollToStage(heroEl, 0, i, 3); });
   });
@@ -867,6 +911,12 @@
       if (d) { brand = (brand + d + deckCards.length) % deckCards.length; paintDeck(); }
     });
   }
+
+  // Team: tap flips a portrait on touch devices, where there is no hover.
+  $$('.person').forEach(function (p) {
+    p.addEventListener('click', function () { p.classList.toggle('flip'); });
+  });
+
   var copyBtn = $('#copyEmail');
   if (copyBtn) {
     copyBtn.addEventListener('click', function () {
@@ -874,6 +924,22 @@
       if (navigator.clipboard) { navigator.clipboard.writeText('studio@fgxcreative.com').then(done, done); } else { done(); }
     });
   }
+
+  // Video: a play button swaps its poster for the YouTube player.
+  $$('[data-yt]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var holder = btn.closest('[data-player]');
+      if (!holder) return;
+      var id = btn.getAttribute('data-yt');
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+      f.title = btn.getAttribute('aria-label') || 'Video';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+      f.setAttribute('style', 'position:absolute;inset:0;width:100%;height:100%;border:0;z-index:30;');
+      holder.appendChild(f);
+    });
+  });
 
   window.addEventListener('scroll', sync, { passive: true });
   window.addEventListener('resize', sync);
