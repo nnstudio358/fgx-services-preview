@@ -188,6 +188,10 @@
     [data-player] { position: relative; }
     .clipplay { position: absolute; transition: opacity 300ms ease; }
 
+    /* one spacing scale: 128px for content chapters, 72px for bands */
+    .sec { padding-top: 128px !important; padding-bottom: 128px !important; }
+    .hwm { transform: none !important; }
+
     /* a headline that spans the column, with the lede alongside it */
     .headrow { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 22px 56px; }
 
@@ -202,14 +206,16 @@
     .animkind { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); }
 
     /* chapter 05: the fan sits under the headline, its caption below */
-    .fanwrap { display: flex; flex-direction: column; gap: 22px; }
-    .fanwrap .stage { --cardw: 46%; --off: 62px; --lift: -16px; margin-left: 6%; }
-    .fanmeta { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px 32px; border-top: 1px solid rgba(255,255,255,0.16); padding-top: 22px; }
+    .fanwrap { display: grid; grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr); gap: 56px; align-items: center; }
+    .fanwrap .stage { --cardw: 58%; --off: 58px; --lift: -15px; }
+    .fanmeta { display: flex; flex-direction: column; align-items: flex-start; gap: 26px; }
 
     @media (max-width: 900px) {
+      .sec { padding-top: 80px !important; padding-bottom: 80px !important; }
       .animstage { flex-grow: 0; aspect-ratio: 16 / 10; min-height: 0; }
       .animrow { grid-template-columns: repeat(auto-fit, minmax(0, 200px)); gap: 14px; }
-      .fanwrap .stage { --cardw: 74%; --off: 16px; --lift: -7px; margin-left: 0; }
+      .fanwrap { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+      .fanwrap .stage { --cardw: 74%; --off: 16px; --lift: -7px; }
     }
 
     /* one type scale across the page */
@@ -324,7 +330,6 @@
         </div>
         <div class="in4" style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end;">
           <a class="ghost" href="#video"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg> Watch the work</a>
-          <a class="btn" href="#contact">Start a project</a>
         </div>
       </div>
       <a class="hcue" href="#intro" aria-label="Scroll to begin" style="position: absolute; z-index: 6; left: 50%; bottom: 32px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; min-height: 44px; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #d9d0d6;">
@@ -414,11 +419,13 @@
       </div>
       <div class="lbt" style="position: absolute; left: 0; right: 0; top: 0; height: 16%; background: #000000;"></div>
       <div class="lbb" style="position: absolute; left: 0; right: 0; bottom: 0; height: 16%; background: #000000;"></div>
-      <div class="vA wrap" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; gap: 24px; pointer-events: none; background: linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0) 55%);">
-        <div class="chap"><span class="num">01</span><span class="bar"></span><span class="lab">Videography</span></div>
-        <h2 class="h2 hero-film" style="max-width: 640px;">Lasko Summit Series</h2>
-        <p class="lede" style="max-width: 480px; font-size: clamp(15px, 1.2vw, 19px);">Concept, shoot, edit and delivery, all in-house. Every decision serves the story: lighting that carries emotion, pacing that holds attention.</p>
-        <span style="font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: #d9d0d6;">Scroll to roll the film</span>
+      <div class="vA" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; pointer-events: none; background: linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.78) 26%, rgba(0,0,0,0.42) 48%, rgba(0,0,0,0) 64%);">
+        <div class="wrap" style="display: flex; flex-direction: column; gap: 24px;">
+          <div class="chap"><span class="num">01</span><span class="bar"></span><span class="lab">Videography</span></div>
+          <h2 class="h2 hero-film" style="max-width: 640px;">Lasko Summit Series</h2>
+          <p class="lede" style="max-width: 480px;">Concept, shoot, edit and delivery, all in-house. Every decision serves the story: lighting that carries emotion, pacing that holds attention.</p>
+          <span style="font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: #d9d0d6;">Scroll to roll the film</span>
+        </div>
       </div>
       <div class="vB wrap" style="position: absolute; left: 0; right: 0; top: 3.2vh; display: flex; justify-content: space-between; align-items: center; gap: 24px; pointer-events: none;">
         <div style="display: flex; align-items: center; gap: 18px;">
@@ -482,7 +489,7 @@
     <div class="snap" aria-hidden="true" style="top: calc((220vh + 76px) * 0.875);"></div>
     <div class="stick" style="position: sticky; top: 76px; height: calc(100vh - 76px); min-height: 660px; overflow: hidden; display: flex; align-items: center; background: radial-gradient(50% 70% at 100% 100%, rgba(101,0,40,0.6) 0%, rgba(101,0,40,0) 70%), #23051c;">
       <div class="wrap split" style="position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center;">
-        <div style="position: relative; z-index: 2; display: flex; flex-direction: column; gap: 22px;">
+        <div style="position: relative; z-index: 2; display: flex; flex-direction: column; gap: 24px;">
           <div class="chap"><span class="num">02</span><span class="bar"></span><span class="lab">Photography</span></div>
           <h2 class="h2" style="font-size: clamp(30px, 3.2vw, 48px);">Dynamic Product Photography</h2>
           <p class="lede" style="font-size: clamp(15px, 1.2vw, 18px); max-width: 540px;">Our product photography highlights items with clarity and style, reflecting the brand’s identity. It builds customer connection by showing products in relatable, aspirational settings.</p>
@@ -504,7 +511,7 @@
                 <span class="cap" style="font-size: clamp(32px, 3.8vw, 58px);">Editorial</span>
               </button>
           </div>
-          <p style="margin: 0; font-size: 14px; letter-spacing: 0.05em; line-height: 1.6; color: #bdb3ba; max-width: 520px;"><strong style="display: block; margin-bottom: 4px; color: #ffffff; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px;">Vision that spans every style</strong>We craft compelling visuals across product, lifestyle, architecture and editorial—elevating every concept beyond the expected.</p>
+          <p style="margin: 0; font-size: 16px; letter-spacing: 0.04em; line-height: 1.65; color: #bdb3ba; max-width: 520px;"><strong style="display: block; margin-bottom: 4px; color: #ffffff; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px;">Vision that spans every style</strong>We craft compelling visuals across product, lifestyle, architecture and editorial—elevating every concept beyond the expected.</p>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 28px;">
           <div class="printstack" style="position: relative; height: min(62vh, 600px); aspect-ratio: 4 / 5; touch-action: pan-y;">
@@ -523,7 +530,6 @@
           </div>
           <div style="display: flex; align-items: center; gap: 18px; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #bdb3ba;">
             <span id="styleCount" style="color: #ffffff; font-weight: 700;">01 / 04</span>
-            <span style="display: block; width: 40px; height: 1px; background: rgba(255,255,255,0.35);"></span>
             <span class="dt-only">Keep scrolling</span>
             <span class="mb-only">Swipe the print</span>
           </div>
@@ -532,7 +538,7 @@
     </div>
   </section>
 
-  <section id="model" class="sec" style="background: #1c1c1c; padding-top: 140px; padding-bottom: 140px;">
+  <section id="model" class="sec" style="background: #1c1c1c;">
     <div class="wrap split" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 72px; align-items: center;">
       <div style="display: flex; flex-direction: column; gap: 28px;">
         <div class="chap rv"><span class="num">03</span><span class="bar"></span><span class="lab">3D Modeling</span></div>
@@ -566,9 +572,6 @@
         <div style="display: flex; flex-direction: column; gap: 18px; max-width: 760px;">
           <div class="chap"><span class="num">04</span><span class="bar"></span><span class="lab">Animation</span></div>
           <h2 class="h2">3D Animation : Transforming Ideas into Dynamic Visuals</h2>
-          <div style="height: 2px; background: rgba(255,255,255,0.12); position: relative; max-width: 300px;">
-            <div class="pinline" style="position: absolute; inset: 0; background: var(--lime);"></div>
-          </div>
         </div>
         <p class="lede" style="max-width: 400px;">Our 3D and 2D animations amplify your message, transforming ideas into memorable, market-moving visuals.</p>
       </div>
@@ -605,7 +608,7 @@
     </div>
   </section>
 
-  <section id="brands" class="sec" style="background: #1c1c1c; padding-top: 140px; padding-bottom: 150px; overflow: hidden;">
+  <section id="brands" class="sec" style="background: #1c1c1c; overflow: hidden;">
     <div class="wrap" style="display: flex; flex-direction: column; gap: 46px;">
       <div class="headrow">
         <div style="display: flex; flex-direction: column; gap: 18px; max-width: 760px;">
@@ -615,34 +618,8 @@
         <p class="lede rv" style="max-width: 400px;">We build brands that resonate—fusing visual storytelling and strategy to capture attention and inspire loyalty.</p>
       </div>
       <div class="fanwrap">
-        <div class="stage rv" style="position: relative; height: 470px; touch-action: pan-y;">
-          <button class="deal" data-card aria-label="Deal the next brand" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 0), calc(var(--lift) * 0)) rotate(0deg) scale(1.000); z-index: 20; filter: brightness(1); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/brand_ridgid.jpg" alt="RIDGID miter saw with Tough Built Tools type" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
-            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: var(--lime); color: #1c1c1c; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">RIDGID</span>
-          </button>
-          <button class="deal" data-card aria-label="Bring Jositos to the front" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 1), calc(var(--lift) * 1)) rotate(3deg) scale(0.965); z-index: 19; filter: brightness(0.56); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/brand_jositos.jpg" alt="Jositos rolled corn chips packaging art" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
-            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Jositos</span>
-          </button>
-          <button class="deal" data-card aria-label="Bring Army National Guard to the front" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 2), calc(var(--lift) * 2)) rotate(6deg) scale(0.930); z-index: 18; filter: brightness(0.50); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/brand_ang.jpg" alt="Army National Guard recruiting piece: The next greatest generation is now" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
-            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Army National Guard</span>
-          </button>
-          <button class="deal" data-card aria-label="Bring Skullcandy to the front" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 3), calc(var(--lift) * 3)) rotate(9deg) scale(0.895); z-index: 17; filter: brightness(0.44); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/brand_skullcandy.jpg" alt="Skullcandy power bank on textured metal" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
-            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Skullcandy</span>
-          </button>
-          <button class="deal" data-card aria-label="Bring Airon to the front" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 4), calc(var(--lift) * 4)) rotate(12deg) scale(0.860); z-index: 16; filter: brightness(0.38); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/brand_airon.jpg" alt="Airon zero contact bearing tonearm advertisement" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
-            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Airon</span>
-          </button>
-          <button class="deal" data-card aria-label="Bring Turtleback to the front" style="position: absolute; left: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 10; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 10% 90%; transform: translateY(-50%) translate(calc(var(--off) * 5), calc(var(--lift) * 5)) rotate(15deg) scale(0.825); z-index: 15; filter: brightness(0.32); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
-            <img src="img/brand_turtleback.jpg" alt="Turtleback EveryWear Armor ad featuring Percival the gorilla" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
-            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Turtleback</span>
-          </button>
-        </div>
         <div class="fanmeta rv">
-          <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; flex-direction: column; gap: 10px;">
             <span style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #bdb3ba;"><span id="brandCount">01 / 06</span> · Featured</span>
             <span id="brandTitle" class="cap" style="font-size: clamp(28px, 2.6vw, 40px);">RIDGID</span>
             <span id="brandKind" style="font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); font-weight: 600;">Campaign key art</span>
@@ -651,16 +628,41 @@
             <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8"></path></svg>
           </button>
         </div>
+        <div class="stage rv" style="position: relative; height: 470px; touch-action: pan-y;">
+          <button class="deal" data-card aria-label="Deal the next brand" style="position: absolute; right: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 9; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 90% 90%; transform: translateY(-50%) translate(calc(var(--off) * -0), calc(var(--lift) * 0)) rotate(-0deg) scale(1.000); z-index: 20; filter: brightness(1); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
+            <img src="img/brand_ridgid.jpg" alt="RIDGID miter saw with Tough Built Tools type" loading="eager" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; opacity: 1; transition: opacity 400ms ease; background: var(--lime); color: #1c1c1c; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">RIDGID</span>
+          </button>
+          <button class="deal" data-card aria-label="Bring Jositos to the front" style="position: absolute; right: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 9; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 90% 90%; transform: translateY(-50%) translate(calc(var(--off) * -1), calc(var(--lift) * 1)) rotate(-3deg) scale(0.965); z-index: 19; filter: brightness(0.56); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
+            <img src="img/brand_jositos.jpg" alt="Jositos rolled corn chips packaging art" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; opacity: 0; transition: opacity 400ms ease; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Jositos</span>
+          </button>
+          <button class="deal" data-card aria-label="Bring Army National Guard to the front" style="position: absolute; right: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 9; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 90% 90%; transform: translateY(-50%) translate(calc(var(--off) * -2), calc(var(--lift) * 2)) rotate(-6deg) scale(0.930); z-index: 18; filter: brightness(0.50); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
+            <img src="img/brand_ang.jpg" alt="Army National Guard recruiting piece: The next greatest generation is now" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; opacity: 0; transition: opacity 400ms ease; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Army National Guard</span>
+          </button>
+          <button class="deal" data-card aria-label="Bring Skullcandy to the front" style="position: absolute; right: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 9; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 90% 90%; transform: translateY(-50%) translate(calc(var(--off) * -3), calc(var(--lift) * 3)) rotate(-9deg) scale(0.895); z-index: 17; filter: brightness(0.44); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
+            <img src="img/brand_skullcandy.jpg" alt="Skullcandy power bank on textured metal" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; opacity: 0; transition: opacity 400ms ease; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Skullcandy</span>
+          </button>
+          <button class="deal" data-card aria-label="Bring Airon to the front" style="position: absolute; right: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 9; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 90% 90%; transform: translateY(-50%) translate(calc(var(--off) * -4), calc(var(--lift) * 4)) rotate(-12deg) scale(0.860); z-index: 16; filter: brightness(0.38); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
+            <img src="img/brand_airon.jpg" alt="Airon zero contact bearing tonearm advertisement" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; opacity: 0; transition: opacity 400ms ease; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Airon</span>
+          </button>
+          <button class="deal" data-card aria-label="Bring Turtleback to the front" style="position: absolute; right: 0; top: 50%; width: var(--cardw); aspect-ratio: 16 / 9; margin: 0; padding: 0; border: 0; background: #2d0c2f; cursor: pointer; transform-origin: 90% 90%; transform: translateY(-50%) translate(calc(var(--off) * -5), calc(var(--lift) * 5)) rotate(-15deg) scale(0.825); z-index: 15; filter: brightness(0.32); box-shadow: 0 30px 70px rgba(0,0,0,0.6);">
+            <img src="img/brand_turtleback.jpg" alt="Turtleback EveryWear Armor ad featuring Percival the gorilla" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+            <span data-tab style="position: absolute; top: 0; right: -34px; width: 34px; padding: 16px 0; writing-mode: vertical-rl; display: flex; align-items: center; opacity: 0; transition: opacity 400ms ease; background: #432a3d; color: #ffffff; font-family: inherit; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; white-space: nowrap;">Turtleback</span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="clients" style="position: relative; background: #23051c; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.08);">
-    <div class="wrap" style="padding-top: 64px; padding-bottom: 20px; display: flex; align-items: baseline; gap: 20px;">
+    <div class="wrap" style="padding-top: 72px; padding-bottom: 20px; display: flex; align-items: baseline; gap: 20px;">
       <h2 style="margin: 0; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; color: #ffffff;">Brands we’ve supported</h2>
-      <span style="height: 1px; flex-grow: 1; background: rgba(255,255,255,0.14);"></span>
     </div>
-    <div class="mq-wrap logorow" style="padding-top: 18px; padding-bottom: 64px;">
+    <div class="mq-wrap logorow" style="padding-top: 18px; padding-bottom: 72px;">
       <div class="marquee">
             <img class="logo" src="img/logo_106.png" alt="Lasko" loading="lazy" decoding="async" style="height: 30px;">
             <img class="logo" src="img/logo_104.png" alt="BIC" loading="lazy" decoding="async" style="height: 38px;">
@@ -688,7 +690,7 @@
     </div>
   </section>
 
-  <section id="team" class="sec" style="background: #1c1c1c; padding-top: 130px; padding-bottom: 130px;">
+  <section id="team" class="sec" style="background: #1c1c1c;">
     <div class="wrap" style="display: flex; flex-direction: column; gap: 44px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap;">
         <div style="display: flex; flex-direction: column; gap: 18px; max-width: 680px;">
@@ -775,7 +777,7 @@
   <section id="contact" style="position: relative; background: radial-gradient(70% 90% at 50% 100%, rgba(101,0,40,0.75) 0%, rgba(101,0,40,0) 70%), #23051c; overflow: hidden;">
     <div style="height: 4px; background: var(--lime);"></div>
     <div class="wm" aria-hidden="true" style="left: 50%; transform: translateX(-50%); bottom: -120px; font-size: 420px;">fgx</div>
-    <div class="wrap" style="position: relative; padding-top: 130px; padding-bottom: 130px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 34px;">
+    <div class="wrap" style="position: relative; padding-top: 128px; padding-bottom: 128px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 32px;">
       <img class="rv" src="img/fgx_logo.png" alt="fgx creative" loading="lazy" decoding="async" style="width: min(300px, 70%); height: auto;">
       <h2 class="h2 rv" style="font-size: clamp(34px, 4.6vw, 72px) !important; max-width: 900px;">Let’s make your brand unforgettable.</h2>
       <p class="lede rv" style="max-width: 680px;">Drive business success by engaging customers with compelling interactions, elevating their experience, and inspiring loyalty and innovation.</p>
@@ -895,7 +897,7 @@
     var n = deckCards.length;
     deckCards.forEach(function (el, i) {
       var rel = (i - brand + n) % n;
-      el.style.transform = 'translateY(-50%) translate(calc(var(--off) * ' + rel + '), calc(var(--lift) * ' + rel + ')) rotate(' + (rel * 3) + 'deg) scale(' + (1 - rel * 0.035).toFixed(3) + ')';
+      el.style.transform = 'translateY(-50%) translate(calc(var(--off) * -' + rel + '), calc(var(--lift) * ' + rel + ')) rotate(-' + (rel * 3) + 'deg) scale(' + (1 - rel * 0.035).toFixed(3) + ')';
       el.style.zIndex = 20 - rel;
       el.style.filter = 'brightness(' + (rel === 0 ? 1 : (0.62 - rel * 0.06).toFixed(2)) + ')';
       el.setAttribute('aria-label', rel === 0 ? 'Deal the next brand' : 'Bring ' + BRANDS[i][0] + ' to the front');
@@ -903,6 +905,7 @@
       if (tab) {
         tab.style.background = rel === 0 ? 'var(--lime)' : '#432a3d';
         tab.style.color = rel === 0 ? '#1c1c1c' : '#ffffff';
+        tab.style.opacity = rel === 0 ? '1' : '0';
       }
     });
     if (brandCount) brandCount.textContent = pad(brand + 1) + ' / ' + pad(n);
