@@ -812,6 +812,7 @@
   var heroSlides = $$('[data-hero-slide]'), heroWords = $('#heroWords'), heroSteps = $$('[data-hero-step]');
   var prints = $$('[data-print]'), styleBtns = $$('[data-style]'), styleCount = $('#styleCount');
   var clipBtns = $$('[data-clip]'), clipFrames = $$('[data-clip-frame]'), clipPlays = $$('[data-clip-play]');
+  var animStage = $('.animstage');
   var deckCards = $$('[data-card]'), brandCount = $('#brandCount'), brandTitle = $('#brandTitle'), brandKind = $('#brandKind');
   var slider = $('#ba'), beforeImg = $('#baBefore'), baLine = $('#baLine'), baFill = $('#baFill');
 
@@ -879,6 +880,8 @@
   }
 
   function paintClips() {
+    // one stage serves every clip, so retire a player that is still sitting on it
+    if (animStage) { $$('iframe', animStage).forEach(function (f) { f.parentNode.removeChild(f); }); }
     clipBtns.forEach(function (b, i) {
       b.setAttribute('aria-pressed', i === clip ? 'true' : 'false');
       b.style.color = i === clip ? '#ffffff' : '#9d8f99';
@@ -947,7 +950,7 @@
     b.addEventListener('click', function () { hero = i; paintHero(); scrollToStage(heroEl, 0, i, 3); });
   });
   styleBtns.forEach(function (b, i) { b.addEventListener('click', function () { pickStyle(i); }); });
-  clipBtns.forEach(function (b, i) { b.addEventListener('click', function () { clip = i; paintClips(); }); });
+  clipBtns.forEach(function (b, i) { b.addEventListener('click', function () { if (i === clip) return; clip = i; paintClips(); }); });
   deckCards.forEach(function (el, i) {
     el.addEventListener('click', function () {
       var n = deckCards.length;
