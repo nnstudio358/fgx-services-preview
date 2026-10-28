@@ -226,11 +226,26 @@
     }
     #nextBrand { white-space: nowrap; }
 
+    /* a discipline and its slash travel together, so a slash never starts a line */
+    .disc { white-space: nowrap; }
+    .disc i { font-style: normal; color: #6f5d6a; margin-left: 14px; }
+    .foot { flex-wrap: wrap; text-align: center; }
+
     @media (max-width: 900px) {
       .sec { padding-top: 80px !important; padding-bottom: 80px !important; }
-      /* keep the fan inside the screen on a portrait tablet */
-      .fanwrap .stage { overflow: hidden; }
-      .fanwrap .stage .deal { right: 4px; }
+      /* the watermark clears the button and shows its descender */
+      .wm-hero { bottom: 64px !important; }
+      /* the film rails match the weight they have on a wide screen */
+      .railv { width: 13px !important; background-size: 100% 15px !important; }
+      /* chapter 02 opens higher so the print stack is on screen sooner */
+      .ppin > .stick { padding-top: 44px !important; padding-bottom: 64px !important; }
+      .ppin .split { gap: 24px !important; }
+      /* the fan runs to both edges: whole cards, and the shadow reaches the sides */
+      .fanwrap .stage { margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); height: 236px !important; --cardw: 72%; --off: 17px; --lift: -7px; }
+      .fanwrap .stage .deal { right: 16px !important; }
+      /* the caption above already names the featured piece */
+      .fanwrap .stage [data-tab] { display: none !important; }
+      .foot { justify-content: center !important; flex-direction: row !important; align-items: center !important; text-align: center !important; gap: 10px 24px; }
       .animstage { flex-grow: 0; aspect-ratio: 16 / 10; min-height: 0; }
       .animrow { grid-template-columns: repeat(auto-fit, minmax(0, 200px)); gap: 14px; }
       .fanwrap { grid-template-columns: minmax(0, 1fr); gap: 30px; }
@@ -385,11 +400,11 @@
         <div class="isub" style="position: relative; padding-top: 26px;">
           <div class="iline" style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--lime);"></div>
         </div>
-        <div class="if3" style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; font-size: 13px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lime); font-weight: 600;">
-          <span>Videography</span><span aria-hidden="true" style="color: #6f5d6a;">/</span>
-          <span>Photography</span><span aria-hidden="true" style="color: #6f5d6a;">/</span>
-          <span>3D Modeling</span><span aria-hidden="true" style="color: #6f5d6a;">/</span>
-          <span>Animation</span>
+        <div class="if3" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; font-size: 13px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lime); font-weight: 600;">
+          <span class="disc">Videography<i aria-hidden="true">/</i></span>
+          <span class="disc">Photography<i aria-hidden="true">/</i></span>
+          <span class="disc">3D Modeling<i aria-hidden="true">/</i></span>
+          <span class="disc">Animation</span>
         </div>
       </div>
     </div>
@@ -812,8 +827,8 @@
         <a href="https://www.fgxcreative.com">www.fgxcreative.com</a>
       </address>
     </div>
-    <footer style="background: #1c1c1c;">
-      <div class="wrap band" style="min-height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 13px; letter-spacing: 0.12em; color: #a89da5;">
+    <footer style="position: relative; z-index: 2;">
+      <div class="wrap foot" style="min-height: 100px; display: flex; align-items: center; justify-content: center; gap: 30px; font-size: 13px; letter-spacing: 0.12em; color: #a89da5;">
         <span>© 2026 FGX Creative. All rights reserved.</span>
         <a href="#top" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-transform: uppercase; letter-spacing: 0.2em;">Back to top
           <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 12V2M2.5 6.5 7 2l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>
