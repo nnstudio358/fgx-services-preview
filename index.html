@@ -1105,6 +1105,44 @@
     p.addEventListener('click', function () { p.classList.toggle('flip'); });
   });
 
+  // Safari can abandon a smooth anchor scroll on a page this long when sticky
+  // sections and lazy images reflow under it, leaving the visitor somewhere else
+  // entirely. Drive it from here and check where it actually landed.
+  $$('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      var el = id && document.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      var doc = document.documentElement;
+      var snap = doc.style.scrollSnapType;
+      doc.style.scrollSnapType = 'none';
+      var want = function () {
+        if (id === 'top') return 0;
+        var y = Math.round(el.getBoundingClientRect().top + window.pageYOffset - HEADER);
+        return y < HEADER ? 0 : y;
+      };
+      try { window.scrollTo({ top: want(), behavior: 'smooth' }); } catch (err) { window.scrollTo(0, want()); }
+      var tries = 0;
+      var settle = setInterval(function () {
+        tries += 1;
+        var target = want();
+        if (Math.abs(window.pageYOffset - target) < 90 || tries > 7) {
+          if (Math.abs(window.pageYOffset - target) >= 90) window.scrollTo(0, target);
+          doc.style.scrollSnapType = snap;
+          clearInterval(settle);
+          sync();
+          // restoring snap can tug the page a little; put it back once.
+          setTimeout(function () {
+            var t = want();
+            if (Math.abs(window.pageYOffset - t) > 60) window.scrollTo(0, t);
+            sync();
+          }, 160);
+        }
+      }, 220);
+    });
+  });
+
   // The hero watermark should sit with half the g's descender below the fold,
   // which depends on the face that actually loaded, so measure it rather than guess.
   function placeWatermark() {
