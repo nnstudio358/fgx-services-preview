@@ -197,8 +197,14 @@
     /* a headline that spans the column, with the lede alongside it */
     .headrow { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 22px 56px; }
 
+    /* chapter 04: the stage takes the height it has and derives its width, so it
+       keeps a 16:9 frame instead of flattening into a letterbox on a short screen */
+    .animstage { flex: 1 1 auto; min-height: 0; aspect-ratio: 16 / 9; width: auto; max-width: 100%; align-self: center; }
+    .lead + .ppin > .stick, .lead + .pin > .stick { padding-top: 0; }
+
     /* chapter 04: one full-width stage, the rest as thumbnails beneath */
-    .animrow { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 260px)); gap: 20px; }
+    .animrow { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 30px; }
+    .animthumb { flex: 0 1 250px; }
     .animthumb { display: flex; align-items: center; gap: 14px; padding: 0; background: transparent; border: 0; border-top: 2px solid rgba(255,255,255,0.14); padding-top: 14px; cursor: pointer; text-align: left; transition: color 300ms ease, border-color 300ms ease; }
     .animthumb img { width: 104px; height: 64px; object-fit: cover; flex-shrink: 0; filter: saturate(0.6) brightness(0.7); transition: filter 400ms ease; }
     .animthumb[aria-pressed="true"] { border-top-color: var(--lime); }
@@ -224,17 +230,6 @@
     @media (max-width: 1000px) { .navl { display: none !important; } }
     /* seven across leaves the names ragged below 1100: go four up */
     /* a landscape tablet is short: spend less of it on padding and chrome */
-    @media (min-width: 901px) and (max-height: 820px) {
-      #motion > .stick { padding-top: 56px !important; padding-bottom: 56px !important; gap: 20px !important; }
-      #motion .h2 { font-size: clamp(28px, 2.9vw, 40px) !important; }
-      /* the thumbnails move beside the stage so the height goes to the work */
-      .animwrap { display: grid !important; grid-template-columns: minmax(0, 1fr) 200px; gap: 24px !important; align-items: stretch; min-height: 0 !important; }
-      .animstage { aspect-ratio: 16 / 9; height: 100% !important; width: auto !important; max-width: 100%; justify-self: center; flex-grow: 0 !important; min-height: 0 !important; }
-      .animrow { grid-template-columns: minmax(0, 1fr) !important; align-content: center; gap: 18px; }
-      .animthumb img { width: 76px; height: 48px; }
-      .animthumb { padding-top: 12px; }
-    }
-
     @media (min-width: 901px) and (max-width: 1100px) {
       .teamgrid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; row-gap: 32px; }
       .fanwrap { grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr); gap: 32px; }
@@ -255,10 +250,13 @@
       .spine { position: absolute; left: -24px; top: 2px; writing-mode: vertical-rl; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #8e8089; white-space: nowrap; }
       .spine b { color: var(--lime); font-weight: 700; letter-spacing: 0.1em; }
       /* chapter 02 opens higher so the print stack is on screen sooner */
-      .ppin > .stick { padding-top: 28px !important; padding-bottom: 56px !important; }
-      .ppin .split { gap: 14px !important; }
-      .ppin .lede { font-size: 15px !important; }
+      .ppin > .stick { padding-top: 12px !important; padding-bottom: 48px !important; }
+      .ppin .split { gap: 14px !important; grid-template-columns: minmax(0, 1fr) !important; }
+      #photo .lede { font-size: 15px !important; }
       .ppin .split > div { gap: 16px !important; }
+      /* a lead block and the frame it introduces read as one section */
+      .lead { padding-bottom: 0 !important; }
+      .lead + .ppin, .lead + .pin { margin-top: 20px; }
       .ppin [data-style] { min-height: 0 !important; padding: 7px 0 !important; }
       .ppin [data-style] .cap { font-size: clamp(25px, 6.6vw, 32px) !important; line-height: 1.04; }
       .printstack { transform: translateX(-10px); }
@@ -268,8 +266,9 @@
       /* the caption above already names the featured piece */
       .fanwrap .stage [data-tab] { display: none !important; }
       .foot { justify-content: center !important; flex-direction: row !important; align-items: center !important; text-align: center !important; gap: 10px 24px; }
-      .animstage { flex-grow: 0; aspect-ratio: 16 / 10; min-height: 0; }
-      .animrow { grid-template-columns: repeat(auto-fit, minmax(0, 200px)); gap: 14px; }
+      .animstage { flex: 0 0 auto !important; width: 100% !important; height: auto !important; aspect-ratio: 16 / 10; }
+      .animrow { justify-content: flex-start; gap: 12px 18px; }
+      .animthumb { flex: 0 1 190px; }
       .fanwrap { grid-template-columns: minmax(0, 1fr); gap: 30px; }
       .fanwrap .stage { --cardw: 74%; --off: 16px; --lift: -7px; }
     }
@@ -544,18 +543,25 @@
     </div>
   </section>
 
-  <section id="photo" class="ppin" style="position: relative; height: calc(var(--vh) * 320); background: #23051c;">
-    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 220) + 76px) * 0.125);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 220) + 76px) * 0.375);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 220) + 76px) * 0.625);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 220) + 76px) * 0.875);"></div>
+  <section id="photo" class="sec lead" style="background: #23051c; padding-bottom: 0 !important;">
+    <div class="wrap headrow">
+      <div style="display: flex; flex-direction: column; gap: 18px; max-width: 720px;">
+        <div class="chap rv"><span class="num">02</span><span class="bar"></span><span class="lab">Photography</span></div>
+        <h2 class="h2 rv">Dynamic Product Photography</h2>
+      </div>
+      <p class="lede rv" style="max-width: 400px;">Our product photography highlights items with clarity and style, building customer connection through relatable, aspirational settings—across product, lifestyle, architecture and editorial.</p>
+    </div>
+  </section>
+
+  <section id="photo-stage" class="ppin" style="position: relative; height: calc(var(--vh) * 300); background: #23051c;">
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 200) + 76px) * 0.125);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 200) + 76px) * 0.375);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 200) + 76px) * 0.625);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 200) + 76px) * 0.875);"></div>
     <div class="stick" style="position: sticky; top: 76px; height: calc(calc(var(--vh) * 100) - 76px); min-height: 660px; overflow: hidden; display: flex; align-items: center; background: radial-gradient(50% 70% at 100% 100%, rgba(101,0,40,0.6) 0%, rgba(101,0,40,0) 70%), #23051c;">
-      <div class="wrap split" style="position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center;">
+      <div class="wrap split" style="position: relative; display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 56px; align-items: center;">
         <div style="position: relative; z-index: 2; display: flex; flex-direction: column; gap: 24px;">
-          <div class="chap"><span class="num">02</span><span class="bar"></span><span class="lab">Photography</span></div>
-          <h2 class="h2" style="font-size: clamp(30px, 3.2vw, 48px);">Dynamic Product Photography</h2>
-          <p class="lede" style="max-width: 560px;">Our product photography highlights items with clarity and style, building customer connection through relatable, aspirational settings—across product, lifestyle, architecture and editorial.</p>
-          <div role="group" aria-label="Photography styles" style="display: flex; flex-direction: column; margin-top: 6px;">
+          <div role="group" aria-label="Photography styles" style="display: flex; flex-direction: column;">
               <button data-style aria-pressed="true" style="display: flex; align-items: center; gap: 18px; min-height: 60px; padding: 0; background: transparent; border: 0; color: #ffffff; cursor: pointer; text-align: left; opacity: 1; transition: opacity 500ms ease;">
                 <span style="display: block; width: 56px; height: 2px; background: var(--lime); transition: width 500ms ease;"></span>
                 <span class="cap" style="font-size: clamp(32px, 3.8vw, 58px);">Product</span>
@@ -574,8 +580,8 @@
               </button>
           </div>
         </div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 28px;">
-          <div class="printstack" style="position: relative; height: min(calc(var(--vh) * 62), 600px); aspect-ratio: 4 / 5; touch-action: pan-y;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 24px;">
+          <div class="printstack" style="position: relative; height: min(calc(var(--vh) * 76), 780px); aspect-ratio: 4 / 5; touch-action: pan-y;">
               <div class="print" data-print style="transform: translate(0px, 0px) rotate(0deg) scale(1); opacity: 1; filter: brightness(1); z-index: 10;">
                 <img src="img/photo_product.webp" alt="Fujifilm camera on a deep red surface" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;">
               </div>
@@ -627,17 +633,20 @@
     </div>
   </section>
 
-  <section id="motion" class="pin" style="position: relative; height: calc(var(--vh) * 220); background: #23051c;">
-    <div class="stick" style="position: sticky; top: 76px; height: calc(calc(var(--vh) * 100) - 76px); overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 28px; padding: 96px 0; background: radial-gradient(55% 70% at 0% 0%, rgba(101,0,40,0.9) 0%, rgba(101,0,40,0) 70%), radial-gradient(40% 60% at 100% 40%, rgba(101,0,40,0.55) 0%, rgba(101,0,40,0) 70%), #23051c;">
-      <div class="wrap headrow">
-        <div style="display: flex; flex-direction: column; gap: 18px; max-width: 720px;">
-          <div class="chap"><span class="num">04</span><span class="bar"></span><span class="lab">Animation</span></div>
-          <h2 class="h2">3D Animation : Transforming Ideas into Dynamic Visuals</h2>
-        </div>
-        <p class="lede" style="max-width: 400px;">Our 3D and 2D animations amplify your message, transforming ideas into memorable, market-moving visuals.</p>
+  <section id="motion" class="sec lead" style="background: #23051c; padding-bottom: 0 !important;">
+    <div class="wrap headrow">
+      <div style="display: flex; flex-direction: column; gap: 18px; max-width: 720px;">
+        <div class="chap rv"><span class="num">04</span><span class="bar"></span><span class="lab">Animation</span></div>
+        <h2 class="h2 rv">3D Animation : Transforming Ideas into Dynamic Visuals</h2>
       </div>
+      <p class="lede rv" style="max-width: 400px;">Our 3D and 2D animations amplify your message, transforming ideas into memorable, market-moving visuals.</p>
+    </div>
+  </section>
+
+  <section id="motion-stage" class="pin" style="position: relative; height: calc(var(--vh) * 200); background: #23051c;">
+    <div class="stick" style="position: sticky; top: 76px; height: calc(calc(var(--vh) * 100) - 76px); overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 24px; padding: 52px 0; background: radial-gradient(55% 70% at 0% 0%, rgba(101,0,40,0.9) 0%, rgba(101,0,40,0) 70%), radial-gradient(40% 60% at 100% 40%, rgba(101,0,40,0.55) 0%, rgba(101,0,40,0) 70%), #23051c;">
       <div class="wrap animwrap" style="display: flex; flex-direction: column; gap: 20px; flex-grow: 1; min-height: 0;">
-        <div class="pinzoom animstage" data-player style="position: relative; flex-grow: 1; min-height: 200px; overflow: hidden; background: #140311; box-shadow: 0 40px 120px rgba(0,0,0,0.55);">
+        <div class="pinzoom animstage" data-player style="position: relative; overflow: hidden; background: #140311; box-shadow: 0 40px 120px rgba(0,0,0,0.55);">
             <div class="frame-swap" data-clip-frame style="position: absolute; inset: 0; opacity: 1;">
               <img src="img/anim_lasko.webp" alt="Lasko fan animation frame showing 34% faster wind speed and 40% quieter" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -872,7 +881,7 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  var heroEl = $('#top'), introEl = $('#intro'), videoEl = $('#video'), photoEl = $('#photo');
+  var heroEl = $('#top'), introEl = $('#intro'), videoEl = $('#video'), photoEl = $('#photo-stage') || $('#photo');
   var heroSlides = $$('[data-hero-slide]'), heroWords = $('#heroWords'), heroSteps = $$('[data-hero-step]');
   var prints = $$('[data-print]'), styleBtns = $$('[data-style]'), styleCount = $('#styleCount');
   var clipBtns = $$('[data-clip]'), clipFrames = $$('[data-clip-frame]'), clipPlays = $$('[data-clip-play]');
