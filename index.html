@@ -250,13 +250,17 @@
       .spine { position: absolute; left: -24px; top: 2px; writing-mode: vertical-rl; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #8e8089; white-space: nowrap; }
       .spine b { color: var(--lime); font-weight: 700; letter-spacing: 0.1em; }
       /* chapter 02 opens higher so the print stack is on screen sooner */
-      .ppin > .stick { padding-top: 12px !important; padding-bottom: 48px !important; }
+      /* chapter 02 stays pinned on a phone so the four styles get a real scroll
+         distance instead of flicking past in a thumb's width */
+      .ppin { height: calc(var(--vh) * 240) !important; }
+      .ppin > .stick { position: sticky !important; top: 76px !important; height: calc(calc(var(--vh) * 100) - 76px) !important;
+        padding-top: 12px !important; padding-bottom: 12px !important; display: flex !important; align-items: center !important; }
+      .printstack { height: min(calc(var(--vh) * 50), 470px) !important; width: auto !important; }
       .ppin .split { gap: 14px !important; grid-template-columns: minmax(0, 1fr) !important; }
       #photo .lede { font-size: 15px !important; }
       .ppin .split > div { gap: 16px !important; }
       /* a lead block and the frame it introduces read as one section */
       .lead { padding-bottom: 0 !important; }
-      .lead + .ppin, .lead + .pin { margin-top: 20px; }
       .ppin [data-style] { min-height: 0 !important; padding: 7px 0 !important; }
       .ppin [data-style] .cap { font-size: clamp(25px, 6.6vw, 32px) !important; line-height: 1.04; }
       .printstack { transform: translateX(-10px); }
