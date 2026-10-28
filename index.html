@@ -100,7 +100,7 @@
     .vpin { --p: 0; }
     .vstage { --a: clamp(0, calc(var(--p) / 0.26), 1); --b: clamp(0, calc((var(--p) - 0.3) / 0.16), 1); --c: clamp(0, calc((var(--p) - 0.5) / 0.46), 1); }
     .strip { transform-origin: 50vw 50%; transform: scale(calc(1 - 0.44 * var(--b))) translateX(calc(var(--c) * var(--steps) * -106vw)); will-change: transform; }
-    .sprocket { background-image: linear-gradient(#d9d0d6, #d9d0d6); background-size: 1.5vw 2.6vh; background-repeat: space no-repeat; background-position: 0 50%; opacity: 0.8; }
+    .sprocket { background-image: linear-gradient(#d9d0d6, #d9d0d6); background-size: 1.5vw 2.calc(var(--vh) * 6); background-repeat: space no-repeat; background-position: 0 50%; opacity: 0.8; }
     .lzoom { transform: scale(calc(1.18 - 0.18 * var(--a))); }
     .lbt { transform: translateY(calc(var(--a) * -100%)); }
     .lbb { transform: translateY(calc(var(--a) * 100%)); }
@@ -181,6 +181,8 @@
       .chap .num { font-size: 34px; }
     }
   
+    :root { --vh: 1vh; }
+    @supports (height: 1svh) { :root { --vh: 1svh; } }
     :root { --lime: #b4e940; }
   
 
@@ -212,6 +214,8 @@
 
     /* the longer chapter words need a little more room between 900 and 1280 */
     .navl a, .btn, .ghost { white-space: nowrap; }
+    .ghost { background: transparent !important; }
+    .in4 .ghost { background: rgba(35,5,28,0.42) !important; }
     @media (max-width: 1280px) {
       .navl { gap: 18px !important; }
       .navl a { font-size: 11px; letter-spacing: 0.1em; }
@@ -219,6 +223,15 @@
     /* below this the longer chapter words crowd the logo and the CTA */
     @media (max-width: 1000px) { .navl { display: none !important; } }
     /* seven across leaves the names ragged below 1100: go four up */
+    /* a landscape tablet is short: spend less of it on padding and chrome */
+    @media (min-width: 901px) and (max-height: 820px) {
+      #motion > .stick { padding-top: 56px !important; padding-bottom: 56px !important; gap: 20px !important; }
+      #motion .h2 { font-size: clamp(28px, 2.9vw, 40px) !important; }
+      .animthumb img { width: 84px; height: 52px; }
+      .animthumb { padding-top: 10px; }
+      .animrow { gap: 14px; }
+    }
+
     @media (min-width: 901px) and (max-width: 1100px) {
       .teamgrid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; row-gap: 32px; }
       .fanwrap { grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr); gap: 32px; }
@@ -300,7 +313,7 @@
   </style>
 </head>
 <body>
-<div style="width: 100%; min-height: 100vh; background: #1c1c1c; overflow-x: clip;">
+<div style="width: 100%; min-height: calc(var(--vh) * 100); background: #1c1c1c; overflow-x: clip;">
 
   <header style="position: sticky; top: 0; z-index: 60; margin-bottom: -76px; background: rgba(28,28,28,0.6); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,0.08);">
     <div class="wrap" style="height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
@@ -318,11 +331,11 @@
     <div class="prog" style="position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--lime);"></div>
   </header>
 
-  <section id="top" class="hpin" style="position: relative; height: 220vh; background: #23051c;">
-    <div class="snap" aria-hidden="true" style="top: calc(120vh * 0.1667 + 76px);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc(120vh * 0.5 + 76px);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc(120vh * 0.8333 + 76px);"></div>
-    <div class="stick" style="position: sticky; top: 0; height: 100vh; min-height: 640px; overflow: hidden;">
+  <section id="top" class="hpin" style="position: relative; height: calc(var(--vh) * 220); background: #23051c;">
+    <div class="snap" aria-hidden="true" style="top: calc(calc(var(--vh) * 120) * 0.1667 + 76px);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc(calc(var(--vh) * 120) * 0.5 + 76px);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc(calc(var(--vh) * 120) * 0.8333 + 76px);"></div>
+    <div class="stick" style="position: sticky; top: 0; height: calc(var(--vh) * 100); min-height: 640px; overflow: hidden;">
       <div class="hzoom" style="position: absolute; inset: 0;">
           <div data-hero-slide style="position: absolute; inset: 0; z-index: 1; clip-path: inset(0% 0 0 0); transition: clip-path 1200ms cubic-bezier(.7,0,.2,1);">
             <img class="hpos" src="img/hero_headphones.webp" alt="Skullcandy headphones lit in red and violet" decoding="async" style="width: 100%; height: 100%; object-fit: cover; --pos: 50% 50%; --posm: 45% 50%; object-position: var(--pos); transform: scale(1); transition: transform 1600ms cubic-bezier(.2,.7,.2,1);">
@@ -374,9 +387,9 @@
     </div>
   </section>
 
-  <section id="intro" class="ipin" style="position: relative; height: 200vh; background: #23051c;">
-    <div class="snap" aria-hidden="true" style="top: calc((100vh + 76px) * 0.9);"></div>
-    <div class="stick" style="position: sticky; top: 76px; height: calc(100vh - 76px); min-height: 600px; overflow: hidden; display: flex; align-items: center; background: radial-gradient(50% 70% at 0% 0%, rgba(101,0,40,0.55) 0%, rgba(101,0,40,0) 70%), #23051c;">
+  <section id="intro" class="ipin" style="position: relative; height: calc(var(--vh) * 200); background: #23051c;">
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 100) + 76px) * 0.9);"></div>
+    <div class="stick" style="position: sticky; top: 76px; height: calc(calc(var(--vh) * 100) - 76px); min-height: 600px; overflow: hidden; display: flex; align-items: center; background: radial-gradient(50% 70% at 0% 0%, rgba(101,0,40,0.55) 0%, rgba(101,0,40,0) 70%), #23051c;">
       <div class="wrap" style="position: relative; display: flex; flex-direction: column; gap: 48px;">
         <p class="iq" style="margin: 0; max-width: 1120px; font-size: clamp(32px, 4.3vw, 66px); line-height: 1.16; font-weight: 300; letter-spacing: 0.01em; text-wrap: pretty;">
             <span style="opacity: clamp(0.16, calc((var(--ip) - 0.040) * 16), 1); font-weight: 600;">FGX </span>
@@ -410,18 +423,18 @@
     </div>
   </section>
 
-  <section id="video" class="vpin" style="position: relative; height: 340vh; background: #000000;">
-    <div class="snap" aria-hidden="true" style="top: calc((240vh + 76px) * 0.3);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((240vh + 76px) * 0.55);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((240vh + 76px) * 0.8);"></div>
-    <div class="stick vstage" style="position: sticky; top: 76px; height: calc(100vh - 76px); min-height: 560px; overflow: hidden; background: #000000;">
-      <div class="strip" style="position: absolute; left: 0; top: -12vh; height: calc(100% + 24vh); width: calc(3 * 106vw); --steps: 2; background: #070707;">
-        <div class="rail" style="top: 4.5vh;">
+  <section id="video" class="vpin" style="position: relative; height: calc(var(--vh) * 340); background: #000000;">
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 240) + 76px) * 0.3);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 240) + 76px) * 0.55);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 240) + 76px) * 0.8);"></div>
+    <div class="stick vstage" style="position: sticky; top: 76px; height: calc(calc(var(--vh) * 100) - 76px); min-height: 560px; overflow: hidden; background: #000000;">
+      <div class="strip" style="position: absolute; left: 0; top: calc(var(--vh) * -12); height: calc(100% + calc(var(--vh) * 24)); width: calc(3 * 106vw); --steps: 2; background: #070707;">
+        <div class="rail" style="top: 4.calc(var(--vh) * 5);">
           <span class="railmark" style="left: calc(0 * 106vw);"><b>01</b> Lasko Summit Series</span>
           <span class="railmark" style="left: calc(1 * 106vw);"><b>02</b> Mad Catter</span>
           <span class="railmark" style="left: calc(2 * 106vw);"><b>03</b> The 2025 Reel</span></div>
-        <div class="rail" style="bottom: 4.5vh;"></div>
-            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(0 * 106vw); overflow: hidden; background: #000000;" data-player>
+        <div class="rail" style="bottom: 4.calc(var(--vh) * 5);"></div>
+            <div style="position: absolute; top: calc(var(--vh) * 12); height: calc(100% - calc(var(--vh) * 24)); width: 100vw; left: calc(0 * 106vw); overflow: hidden; background: #000000;" data-player>
               <img class="lzoom" src="img/film_lasko.webp" alt="Black and white mountain peak from the Lasko Summit Series film" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%;">
               <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0) 48%);"></div>
               <div class="fcap fcapL" style="position: absolute; left: 5vw; right: 5vw; bottom: 4.5vw; display: flex; justify-content: space-between; align-items: flex-end; gap: 3vw; z-index: 20;">
@@ -432,7 +445,7 @@
                 <button class="play" data-yt="qu0w5-RIRnU" aria-label="Play Lasko Summit Series" style="width: 8vw; height: 8vw; min-width: 56px; min-height: 56px; flex-shrink: 0;"><svg width="38%" height="38%" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
               </div>
             </div>
-            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(1 * 106vw); overflow: hidden; background: #000000;" data-player>
+            <div style="position: absolute; top: calc(var(--vh) * 12); height: calc(100% - calc(var(--vh) * 24)); width: 100vw; left: calc(1 * 106vw); overflow: hidden; background: #000000;" data-player>
               <img class="" src="img/film_madcatter.webp" alt="Mad Catter Coffee Roasters sign carved into wood beside a latte" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;">
               <div style="position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0) 48%);"></div>
               <div class="fcap" style="position: absolute; left: 5vw; right: 5vw; bottom: 4.5vw; display: flex; justify-content: space-between; align-items: flex-end; gap: 3vw; z-index: 20;">
@@ -443,7 +456,7 @@
                 <button class="play" data-yt="BGpmPlMSrq8" aria-label="Play Mad Catter Coffee Roasters" style="width: 8vw; height: 8vw; min-width: 56px; min-height: 56px; flex-shrink: 0;"><svg width="38%" height="38%" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"></path></svg></button>
               </div>
             </div>
-            <div style="position: absolute; top: 12vh; height: calc(100% - 24vh); width: 100vw; left: calc(2 * 106vw); overflow: hidden; background: var(--lime);" data-player>
+            <div style="position: absolute; top: calc(var(--vh) * 12); height: calc(100% - calc(var(--vh) * 24)); width: 100vw; left: calc(2 * 106vw); overflow: hidden; background: var(--lime);" data-player>
               <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3vw; text-align: center; color: #1c1c1c; padding: 20px;">
                 <span style="font-size: 2vw; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700;">Video highlights</span>
                 <span class="cap" style="font-size: 7vw; font-weight: 300;">The 2025 Reel</span>
@@ -461,7 +474,7 @@
           <span style="font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: #d9d0d6;">Scroll to roll the film</span>
         </div>
       </div>
-      <div class="vB wrap" style="position: absolute; left: 0; right: 0; top: 3.2vh; display: flex; justify-content: space-between; align-items: center; gap: 24px; pointer-events: none;">
+      <div class="vB wrap" style="position: absolute; left: 0; right: 0; top: 3.calc(var(--vh) * 2); display: flex; justify-content: space-between; align-items: center; gap: 24px; pointer-events: none;">
         <div style="display: flex; align-items: center; gap: 18px;">
           <span class="serif" style="font-size: 34px; line-height: 1; color: var(--lime);">01</span>
           <h3 style="margin: 0; font-size: clamp(16px, 1.4vw, 20px); letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600;">Videography</h3>
@@ -516,12 +529,12 @@
     </div>
   </section>
 
-  <section id="photo" class="ppin" style="position: relative; height: 320vh; background: #23051c;">
-    <div class="snap" aria-hidden="true" style="top: calc((220vh + 76px) * 0.125);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((220vh + 76px) * 0.375);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((220vh + 76px) * 0.625);"></div>
-    <div class="snap" aria-hidden="true" style="top: calc((220vh + 76px) * 0.875);"></div>
-    <div class="stick" style="position: sticky; top: 76px; height: calc(100vh - 76px); min-height: 660px; overflow: hidden; display: flex; align-items: center; background: radial-gradient(50% 70% at 100% 100%, rgba(101,0,40,0.6) 0%, rgba(101,0,40,0) 70%), #23051c;">
+  <section id="photo" class="ppin" style="position: relative; height: calc(var(--vh) * 320); background: #23051c;">
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 220) + 76px) * 0.125);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 220) + 76px) * 0.375);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 220) + 76px) * 0.625);"></div>
+    <div class="snap" aria-hidden="true" style="top: calc((calc(var(--vh) * 220) + 76px) * 0.875);"></div>
+    <div class="stick" style="position: sticky; top: 76px; height: calc(calc(var(--vh) * 100) - 76px); min-height: 660px; overflow: hidden; display: flex; align-items: center; background: radial-gradient(50% 70% at 100% 100%, rgba(101,0,40,0.6) 0%, rgba(101,0,40,0) 70%), #23051c;">
       <div class="wrap split" style="position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center;">
         <div style="position: relative; z-index: 2; display: flex; flex-direction: column; gap: 24px;">
           <div class="chap"><span class="num">02</span><span class="bar"></span><span class="lab">Photography</span></div>
@@ -547,7 +560,7 @@
           </div>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 28px;">
-          <div class="printstack" style="position: relative; height: min(62vh, 600px); aspect-ratio: 4 / 5; touch-action: pan-y;">
+          <div class="printstack" style="position: relative; height: min(calc(var(--vh) * 62), 600px); aspect-ratio: 4 / 5; touch-action: pan-y;">
               <div class="print" data-print style="transform: translate(0px, 0px) rotate(0deg) scale(1); opacity: 1; filter: brightness(1); z-index: 10;">
                 <img src="img/photo_product.webp" alt="Fujifilm camera on a deep red surface" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;">
               </div>
@@ -599,8 +612,8 @@
     </div>
   </section>
 
-  <section id="motion" class="pin" style="position: relative; height: 220vh; background: #23051c;">
-    <div class="stick" style="position: sticky; top: 76px; height: calc(100vh - 76px); overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 28px; padding: 96px 0; background: radial-gradient(55% 70% at 0% 0%, rgba(101,0,40,0.9) 0%, rgba(101,0,40,0) 70%), radial-gradient(40% 60% at 100% 40%, rgba(101,0,40,0.55) 0%, rgba(101,0,40,0) 70%), #23051c;">
+  <section id="motion" class="pin" style="position: relative; height: calc(var(--vh) * 220); background: #23051c;">
+    <div class="stick" style="position: sticky; top: 76px; height: calc(calc(var(--vh) * 100) - 76px); overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 28px; padding: 96px 0; background: radial-gradient(55% 70% at 0% 0%, rgba(101,0,40,0.9) 0%, rgba(101,0,40,0) 70%), radial-gradient(40% 60% at 100% 40%, rgba(101,0,40,0.55) 0%, rgba(101,0,40,0) 70%), #23051c;">
       <div class="wrap headrow">
         <div style="display: flex; flex-direction: column; gap: 18px; max-width: 720px;">
           <div class="chap"><span class="num">04</span><span class="bar"></span><span class="lab">Animation</span></div>
