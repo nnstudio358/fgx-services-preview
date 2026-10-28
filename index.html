@@ -228,8 +228,8 @@
       #motion > .stick { padding-top: 56px !important; padding-bottom: 56px !important; gap: 20px !important; }
       #motion .h2 { font-size: clamp(28px, 2.9vw, 40px) !important; }
       /* the thumbnails move beside the stage so the height goes to the work */
-      .animwrap { display: grid !important; grid-template-columns: minmax(0, 1fr) 210px; gap: 26px !important; align-items: center; }
-      .animstage { aspect-ratio: 16 / 9; flex-grow: 0 !important; height: auto !important; min-height: 0 !important; }
+      .animwrap { display: grid !important; grid-template-columns: minmax(0, 1fr) 200px; gap: 24px !important; align-items: stretch; min-height: 0 !important; }
+      .animstage { aspect-ratio: 16 / 9; height: 100% !important; width: auto !important; max-width: 100%; justify-self: center; flex-grow: 0 !important; min-height: 0 !important; }
       .animrow { grid-template-columns: minmax(0, 1fr) !important; align-content: center; gap: 18px; }
       .animthumb img { width: 76px; height: 48px; }
       .animthumb { padding-top: 12px; }
@@ -258,8 +258,9 @@
       .ppin > .stick { padding-top: 28px !important; padding-bottom: 56px !important; }
       .ppin .split { gap: 14px !important; }
       .ppin .lede { font-size: 15px !important; }
-      .ppin [data-style] { min-height: 48px !important; }
-      .ppin [data-style] .cap { font-size: clamp(25px, 6.6vw, 32px) !important; }
+      .ppin .split > div { gap: 16px !important; }
+      .ppin [data-style] { min-height: 0 !important; padding: 7px 0 !important; }
+      .ppin [data-style] .cap { font-size: clamp(25px, 6.6vw, 32px) !important; line-height: 1.04; }
       .printstack { transform: translateX(-10px); }
       /* the fan runs to both edges: whole cards, and the shadow reaches the sides */
       .fanwrap .stage { margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); height: 236px !important; --cardw: 72%; --off: 17px; --lift: -7px; }
